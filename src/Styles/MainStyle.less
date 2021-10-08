@@ -1,0 +1,63 @@
+@import '~antd/dist/antd.css';
+
+.header {
+    display: flex;
+}
+
+
+.trigger {
+    margin-left: 16px;
+    margin-right: 16px;
+    align-self: center;
+}
+
+.menu {
+    .ant-menu-horizontal {
+        & > .ant-menu-submenu {
+            float: right;
+        }
+        border: none;
+    }
+
+    box-shadow: #e4ecef;
+    position: relative;
+
+    .ant-menu-submenu-title {
+        width: 64px;
+        height: 64px;
+        text-align: center;
+        padding-top: 8px;
+    }
+}
+
+.menu-logo {
+    // background-image: url('./logo.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 35px;
+    background-size: 100%;
+    margin: 20px;
+    color: #ffffff;
+  }
+
+
+.login-form {
+    max-width: 100%;
+}
+
+.login-form-forgot {
+    float: right;
+}
+
+.ant-col-rtl .login-form-forgot {
+    float: left;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
+.swal2-popup {
+    font-size: 0.8rem !important;
+}
+

@@ -1,0 +1,116 @@
+{
+    "blankLayout": [
+        {
+            "routeName": "/test",
+            "componentName": "TestPage"
+        },
+        {
+            "routeName": "/sample",
+            "componentName": "SamplePage"
+        },
+        {
+            "routeName": "/default",
+            "componentName": "DefaultPage"
+        },
+        {
+            "routeName": "/auth/login",
+            "componentName": "Auths/LoginPage"
+        },
+        {
+            "routeName": "/auth/logout",
+            "componentName": "Auths/LogoutPage"
+        }
+    ],
+    "MainLayout": [
+        {
+            "name": "대시보드.",
+            "routeName": "/",
+            "componentName": "Mains/Dashboard"
+        },
+        {
+            "name": "대시보드.",
+            "routeName": "/dashboard",
+            "componentName": "Mains/Dashboard"
+        },
+        {
+            "name": "카테고리 목록.",
+            "routeName": "/products/show-product-category",
+            "componentName": "Products/ShowProductsCategoryPage"
+        },
+        {
+            "name": "카테고리 등록.",
+            "routeName": "/products/add-product-category",
+            "componentName": "Products/AddProductsCategoryPage"
+        },
+        {
+            "name": "카테고리 수정.",
+            "routeName": "/products/update-product-category/:category_uuid",
+            "componentName": "Products/updateProductsCategoryPage"
+        },
+        {
+            "name": "상품 목록.",
+            "routeName": "/products/show-products",
+            "componentName": "Products/ShowProductsPage"
+        },
+        {
+            "name": "상품 상세 정보.",
+            "routeName": "/products/:product_uuid/detail-product",
+            "componentName": "Products/DetailProductPage"
+        },
+        {
+            "name": "상품 등록.",
+            "routeName": "/products/add-product",
+            "componentName": "Products/AddProductPage"
+        },
+        {
+            "name": "상품 수정.",
+            "routeName": "/products/:product_uuid/update-product",
+            "componentName": "Products/UpdateProductPage"
+        },
+        {
+            "name": "사용자 목록.",
+            "routeName": "/customers/show-customers",
+            "componentName": "Customers/ShowCustomersPage"
+        },
+        {
+            "name": "결제 목록.",
+            "routeName": "/pays/show-pays",
+            "componentName": "Pays/ShowPaysPage"
+        },
+        {
+            "name": "메인 슬라이드 목록.",
+            "routeName": "/pages/show-main-slide",
+            "componentName": "Pages/ShowMainSlidePage"
+        },
+        {
+            "name": "메인 슬라이드 등록.",
+            "routeName": "/pages/add-main-slide",
+            "componentName": "Pages/AddUpdateMainSlidePage"
+        },
+        {
+            "name": "메인 슬라이드 수정.",
+            "routeName": "/pages/update-main-slide/:slide_uuid",
+            "componentName": "Pages/AddUpdateMainSlidePage"
+        },
+        {
+            "name": "메인슬라이드 상세 정보.",
+            "routeName": "/pages/:slide_uuid/detail-main-slide",
+            "componentName": "Pages/DetailMainSlidePage"
+        },
+        {
+            "name": "싸이트 공지사항 목록.",
+            "routeName": "/sites/show-site-notice",
+            "componentName": "Sites/ShowSiteNoticesPage"
+        },
+        {
+            "name": "싸이트 공지사항 등록.",
+            "routeName": "/sites/add-site-notice",
+            "componentName": "Sites/AddSiteNoticesPage"
+        },
+        {
+            "name": "서비스 공지사항 등록.",
+            "routeName": "/sites/show-service-notice",
+            "componentName": "Sites/ShowServiceNoticePage"
+        }
+    ]
+}

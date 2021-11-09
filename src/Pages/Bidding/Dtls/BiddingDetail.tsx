@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Divider, Form, Input, Row, Switch, Image, Card, Col, message, Descriptions } from 'antd';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { Divider, Row, Image, Card, Col, message, Descriptions } from 'antd';
+// import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import * as _API_ from '@API';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function BiddingDetail() {
-    const history = useHistory();
+    // const history = useHistory();
     const params = useParams<{ id: string }>();
 
     const [cardLoading, setCardLoading] = useState(false);
-    const [form] = Form.useForm();
+    // const [form] = Form.useForm();
 
     const [initialValueData, setInitialValueData] = useState<{
         image: string;

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { PageHeader } from '@Layouts';
-import { useDataTable, useLoading } from '@Hooks';
+import { useDataTable } from '@Hooks';
 import * as constants from '@Src/Data/BiddingList';
 import * as _API_ from '@API';
 import { message } from 'antd';
 
 export default function BiddingList() {
-    const { loadingControl } = useLoading();
+    // const { loadingControl } = useLoading();
     const [tableData, setTableData] = useState<{
         totalElements: number;
         content: Array<{
@@ -32,7 +32,7 @@ export default function BiddingList() {
         totalElements: 0,
         content: [],
     });
-    const { DataTable, hasSelected, selectedRowKeys } = useDataTable({
+    const { DataTable, hasSelected } = useDataTable({
         columns: constants.columns,
         dataSource: tableData,
         updateEntityPath: 'pages/update-main-slide',

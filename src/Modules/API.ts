@@ -1,6 +1,6 @@
 import { _Axios_ } from '@Utils';
 import * as CommonTypes from 'CommonTypes';
-import EstimateDetail from '@Page/Bidding/Dtls/EstimateDetail';
+// import EstimateDetail from '@Page/Bidding/Dtls/EstimateDetail';
 
 // 서버 공지 사항 체크.
 export function checkServerNotice(): Promise<CommonTypes.ServiceResponse<{ notice: string }>> {

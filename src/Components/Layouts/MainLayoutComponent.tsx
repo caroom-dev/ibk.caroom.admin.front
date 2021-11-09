@@ -3,13 +3,13 @@ import { Layout } from 'antd';
 import { SideBar, TopBar, FooterBar } from '@Element/Bar';
 import { RootState } from 'StoreTypes';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import _Alert_ from '@_Alert_';
+// import { useHistory } from 'react-router-dom';
+// import _Alert_ from '@_Alert_';
 
 const { Content } = Layout;
 
 export default function MainLayoutComponent({ children }: { children: any }) {
-    const history = useHistory();
+    // const history = useHistory();
     const { appLoginState } = useSelector((store: RootState) => ({
         appLoginState: store.app.loginState,
     }));

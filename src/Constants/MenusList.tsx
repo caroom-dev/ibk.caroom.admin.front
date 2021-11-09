@@ -1,11 +1,11 @@
 import React from 'react';
 import {
     DashboardOutlined,
-    FundProjectionScreenOutlined,
+    // FundProjectionScreenOutlined,
     PartitionOutlined,
-    SlidersOutlined,
-    TeamOutlined,
-    PayCircleOutlined,
+    // SlidersOutlined,
+    // TeamOutlined,
+    // PayCircleOutlined,
 } from '@ant-design/icons';
 
 export const menus = [

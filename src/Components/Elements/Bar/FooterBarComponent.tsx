@@ -17,7 +17,7 @@ export default function FooterBarComponent() {
                 display: 'flex',
             }}
         >
-            Lunatalk ©2021 Created by lunatalk
+            Caroom Admin ©2021 Created by caroom
         </Footer>
     );
 }

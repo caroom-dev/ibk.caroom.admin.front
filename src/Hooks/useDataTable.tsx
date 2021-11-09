@@ -29,11 +29,11 @@ function useDataTable({
 
     const updatedColumns = [
         ...columns,
-        {
-            title: '관리',
-            key: 'action',
-            render: () => actionColumnView,
-        },
+        // {
+        //     title: '관리',
+        //     key: 'action',
+        //     render: () => actionColumnView,
+        // },
     ];
 
     // const handleSingleDelete = () => {

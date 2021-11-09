@@ -1,7 +1,7 @@
 import React from 'react';
 import { Axis, Chart, Geom, Tooltip } from 'bizcharts';
 import '@Style/Chart.less';
-import autoHeight from '@Util/autoHeight';
+// import autoHeight from '@Util/autoHeight';
 
 function MiniArea(props) {
     const {
@@ -86,4 +86,5 @@ function MiniArea(props) {
     );
 }
 
-export default autoHeight()(MiniArea);
+// export default autoHeight()(MiniArea);
+export default MiniArea;

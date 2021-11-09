@@ -1,5 +1,5 @@
 import { takeLatest, fork, put, call } from 'redux-saga/effects';
-import { postLogin } from '@API';
+import { login } from '@API';
 import { setlocalToken, removeLocalToken } from '@Helper';
 import { ServiceResponse } from 'CommonTypes';
 import { COLORLOG, getLocalToken, isEmpty } from '@Helper';
@@ -13,10 +13,12 @@ function* loginRequestSaga({
 }: {
     payload: { login_id: string; login_password: string };
 }) {
-    const response: ServiceResponse<{ access_token: string; refresh_token: string }> = yield call(postLogin, {
-        login_id: login_id,
-        login_password: login_password,
+    const response: ServiceResponse<{ access_token: string; refresh_token: string }> = yield call(login, {
+        email: login_id,
+        password: login_password,
     });
+
+    console.debug(response);
 
     const { status, message, payload } = response;
 

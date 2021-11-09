@@ -22,10 +22,10 @@ export default function MainLayoutComponent({ children }: { children: any }) {
 
     useEffect(() => {
         if (appLoginState === false) {
-            _Alert_.error({ text: '로그인이 필요한 서비스 입니다.' });
-            history.push({
-                pathname: process.env.PUBLIC_URL + `/auth/login`,
-            });
+            // _Alert_.error({ text: '로그인이 필요한 서비스 입니다.' });
+            // history.push({
+            //     pathname: process.env.PUBLIC_URL + `/auth/login`,
+            // });
         }
     }, []);
 

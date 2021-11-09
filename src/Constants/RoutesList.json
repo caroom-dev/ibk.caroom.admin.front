@@ -46,6 +46,11 @@
             "name": "견적 목록.",
             "routeName": "/bidding/:id/estimate-list",
             "componentName": "Bidding/EstimateListPage"
+        },
+        {
+            "name": "견적 상세.",
+            "routeName": "/bidding/:id/estimate-detail",
+            "componentName": "Bidding/EstimateDetailPage"
         }
     ]
 }

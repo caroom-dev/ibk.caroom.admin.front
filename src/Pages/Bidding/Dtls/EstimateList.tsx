@@ -14,28 +14,11 @@ export default function BiddingList() {
     const [tableData, setTableData] = useState<{
         totalElements: number;
         content: Array<{
-            id: string;
+            id: number;
             account_id: number;
-            discount: {
-                number: number;
-                string: string;
-            };
-            category: {
-                code_id: string;
-                code_name: string;
-                eng_name: '';
-            };
-            account: {
-                name: string;
-                position: string;
-                companyName: string;
-                rating: string;
-            };
-            goods: Array<{
-                gubun: string;
-                brand: string;
-                model: string;
-            }>;
+            discount: string;
+            category: string;
+            accountName: string;
         }>;
     }>({
         totalElements: 0,
@@ -59,7 +42,15 @@ export default function BiddingList() {
                 const payload = response.payload;
                 setTableData({
                     totalElements: payload.length,
-                    content: payload,
+                    content: payload.map(item => {
+                        return {
+                            id: item.id,
+                            account_id: item.account_id,
+                            discount: item.discount.string,
+                            category: item.category.code_name,
+                            accountName: item.account.name,
+                        };
+                    }),
                 });
             } else {
                 message.error(response.message);

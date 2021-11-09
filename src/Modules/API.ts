@@ -1,5 +1,6 @@
 import { _Axios_ } from '@Utils';
 import * as CommonTypes from 'CommonTypes';
+import EstimateDetail from '@Page/Bidding/Dtls/EstimateDetail';
 
 // 서버 공지 사항 체크.
 export function checkServerNotice(): Promise<CommonTypes.ServiceResponse<{ notice: string }>> {
@@ -46,6 +47,7 @@ export function getBidding(): Promise<
 export function getBiddingEstimate(id: number): Promise<
     CommonTypes.ServiceResponse<
         Array<{
+            id: number;
             uuid: string;
             account_id: number;
             discount: {
@@ -151,4 +153,56 @@ export function getBiddingDetail(id: number): Promise<
     }>
 > {
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/${id}/bidding-detail`, payload: { data: {} } });
+}
+
+export function getBiddingEstimateDetail(id: number): Promise<
+    CommonTypes.ServiceResponse<{
+        id: number;
+        category: {
+            code_id: string;
+            code_name: string;
+        };
+        account: {
+            name: string;
+            position: string;
+            companyName: string;
+            rating: string;
+        };
+        car: {
+            brand: string;
+            model: string;
+            class: string;
+            color: string;
+            image: string;
+            rgb: string;
+            price: {
+                number: number;
+                string: string;
+            };
+            option_price: {
+                number: number;
+                string: string;
+            };
+            options: Array<{
+                name: string;
+                price: {
+                    number: number;
+                    string: string;
+                };
+            }>;
+        };
+        estimate: {
+            discount: {
+                number: number;
+                string: string;
+            };
+            goods: Array<{
+                gubun: string;
+                name: string;
+            }>;
+            memo: string;
+        };
+    }>
+> {
+    return _Axios_({ method: 'get', url: `/v2/admin/bidding/${id}/bidding-estimate-detail`, payload: { data: {} } });
 }

@@ -57,7 +57,7 @@
     "build:prod": "cp .config/production.env .env && GENERATE_SOURCEMAP=false craco build",
     "build:test": "yarn build && serve -s build",
     "deploy:live1": "ssh caroom-live1 \"rm -rf /srv/services/client/ibk.caroom.co.kr/public/*\" && scp -r ./build/* caroom-live1:/srv/services/client/ibk.caroom.co.kr/public",
-    "deploy:live2": "ssh caroom-live2 \"rm -rf /srv/services/client/ibk.caroom.co.kr/public/*\" && scp -r ./build/* caroom-live1:/srv/services/client/ibk.caroom.co.kr/public"
+    "deploy:live2": "ssh caroom-live2 \"rm -rf /srv/services/client/ibk.caroom.co.kr/public/*\" && scp -r ./build/* caroom-live2:/srv/services/client/ibk.caroom.co.kr/public"
   },
   "eslintConfig": {
     "extends": [

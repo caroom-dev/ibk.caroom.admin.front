@@ -9,7 +9,7 @@ export function checkServerNotice(): Promise<CommonTypes.ServiceResponse<{ notic
 
 // 싸이트 기본 데이터.
 export function getBaseData(): Promise<CommonTypes.ServiceResponse<CommonTypes.AppBase>> {
-    return _Axios_({ method: 'get', url: '/api/system/base-data', payload: { data: {} } });
+    return _Axios_({ method: 'get', url: '/v2/admin/system/base-data', payload: { data: {} } });
 }
 
 // 로그인.
@@ -155,6 +155,7 @@ export function getBiddingDetail(id: number): Promise<
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/${id}/bidding-detail`, payload: { data: {} } });
 }
 
+// 견적 상세.
 export function getBiddingEstimateDetail(id: number): Promise<
     CommonTypes.ServiceResponse<{
         id: number;
@@ -205,4 +206,47 @@ export function getBiddingEstimateDetail(id: number): Promise<
     }>
 > {
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/${id}/bidding-estimate-detail`, payload: { data: {} } });
+}
+
+export function getEstimateSevice(): Promise<
+    CommonTypes.ServiceResponse<{
+        category: Array<{
+            code_id: string;
+            code_name: string;
+        }>;
+        service: {
+            tinting: {
+                title: string;
+                brand: Array<{
+                    id: number;
+                    title: string;
+                }>;
+            };
+            blackbox: {
+                title: string;
+                brand: Array<{
+                    id: number;
+                    title: string;
+                }>;
+            };
+        };
+    }>
+> {
+    return _Axios_({ method: 'get', url: `/v2/admin/bidding/estimate-sevice`, payload: { data: {} } });
+}
+
+export function sendEstimates(
+    id: number,
+    payload: {
+        category: string;
+        tinting: number;
+        tintingModel: string;
+        blackbox: number;
+        blackboxModel: string;
+        etc: string;
+        discount: string;
+        memo: string;
+    }
+): Promise<CommonTypes.ServiceResponse<{ message: string }>> {
+    return _Axios_({ method: 'post', url: `/v2/admin/bidding/${id}/estimate-apply`, payload: payload });
 }

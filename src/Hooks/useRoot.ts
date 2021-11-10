@@ -23,7 +23,6 @@ export default function useRoot() {
             COLORLOG(':: App Init Start :: ', 'info');
             dispatch(appInitAction());
         };
-
         appStart();
     }, []);
 

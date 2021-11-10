@@ -4,7 +4,6 @@ import { BodySpinner } from '@Element/Spinners';
 
 export default function SplashComponent({ appLoading }: { appLoading: () => void }) {
     const { AppBaseCheckState } = useRoot();
-
     useEffect(() => {
         const setAppMainLoading = (loading: boolean) => {
             if (loading) {

@@ -1,9 +1,8 @@
 import { createReducer } from 'typesafe-actions';
-import { SagaAction } from 'CommonTypes';
+import { Codes, SagaAction } from 'CommonTypes';
 import produce from 'immer';
 // import { ErrorMessage } from 'StoreTypes';
 import { AppState } from 'StoreTypes';
-import {} from './actions';
 
 import * as _Types from './types';
 
@@ -18,7 +17,22 @@ const initialState: AppState = {
         loading: false,
         message: '',
     },
-    common: {},
+    common: {
+        codes: {
+            '020': [],
+            '030': [],
+            '031': [],
+            '032': [],
+            '033': [],
+            '034': [],
+            '035': [],
+            '036': [],
+            '041': [],
+            '050': [],
+            '060': [],
+            '061': [],
+        },
+    },
 };
 
 export const AppSagaReducer = createReducer<AppState>(initialState, {
@@ -40,6 +54,11 @@ export const AppSagaReducer = createReducer<AppState>(initialState, {
     [_Types.APP_ERROR]: (state: AppState, action: SagaAction<{ message: string }>) => {
         return produce(state, draft => {
             draft.service_message = action.payload.message;
+        });
+    },
+    [_Types.COMMON_DATA]: (state: AppState, action: SagaAction<{ codes: Codes }>) => {
+        return produce(state, draft => {
+            draft.common.codes = action.payload.codes;
         });
     },
     [_Types.APP_PAGE_LOADING_START]: (state: AppState) => {

@@ -1,29 +1,29 @@
 import { takeLatest, fork, put, call } from 'redux-saga/effects';
-import _Alert_ from '@_Alert_';
-import { checkServerNotice, getBaseData } from '@API';
+// import _Alert_ from '@_Alert_';
+import { getBaseData } from '@API';
 import { COLORLOG } from '@Helper';
-import { axiosDefaultHeader } from '@Util/_Axios_';
-import axios from 'axios';
+// import { axiosDefaultHeader } from '@Util/_Axios_';
+// import axios from 'axios';
 import { ServiceResponse, AppBase } from 'CommonTypes';
 
 import * as _Types from './types';
 
 // 서버 통신 체크만 따로 뺴서..
-const checkServerStatus = async () => {
-    return axios.get('/api/system/check-status', axiosDefaultHeader);
-};
+// const checkServerStatus = async () => {
+//     return axios.get('/api/system/check-status', axiosDefaultHeader);
+// };
 
 // app 최초 로딩.
 function* appInitSaga() {
     yield put({ type: _Types.START_APP_LOADING }); // 공통 로딩 시작.
 
     try {
-        yield call(checkServerStatus);
+        // yield call(checkServerStatus);
 
-        const serverNotice: ServiceResponse<{ notice: string }> = yield call(checkServerNotice);
-        if (serverNotice.status && serverNotice.payload && serverNotice.payload.notice) {
-            _Alert_.default({ text: serverNotice.payload.notice });
-        }
+        // const serverNotice: ServiceResponse<{ notice: string }> = yield call(checkServerNotice);
+        // if (serverNotice.status && serverNotice.payload && serverNotice.payload.notice) {
+        //     _Alert_.default({ text: serverNotice.payload.notice });
+        // }
 
         const serverBaseData: ServiceResponse<AppBase> = yield call(getBaseData);
 
@@ -31,7 +31,6 @@ function* appInitSaga() {
             type: _Types.COMMON_DATA,
             payload: {
                 codes: serverBaseData.payload.codes,
-                products: serverBaseData.payload.products,
             },
         });
 

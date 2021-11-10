@@ -23,11 +23,28 @@ declare module 'CommonTypes' {
         access_token: string;
         refresh_token: string;
     }
+    export interface CodeItem {
+        code_id: string;
+        code_name: string;
+    }
+    export interface Codes {
+        '020': CodeItem[];
+        '030': CodeItem[];
+        '031': CodeItem[];
+        '032': CodeItem[];
+        '033': CodeItem[];
+        '034': CodeItem[];
+        '035': CodeItem[];
+        '036': CodeItem[];
+        '041': CodeItem[];
+        '050': CodeItem[];
+        '060': CodeItem[];
+        '061': CodeItem[];
+    }
 
     // 기본 데이터들.
     export interface AppBase {
-        codes: string[];
-        products: string[];
+        codes: Codes
     }
 
     interface carRoomTreeSelectItem {

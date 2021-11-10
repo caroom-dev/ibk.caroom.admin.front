@@ -77,7 +77,7 @@ export default function BiddingList() {
             }
         };
 
-        fnGetList();
+        fnGetList().then();
     }, []);
 
     return (

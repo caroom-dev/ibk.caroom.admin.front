@@ -79,22 +79,3 @@ export const columns = [
         ),
     },
 ];
-
-export const data = {
-    totalElements: 3,
-    content: [
-        {
-            key: '1',
-            date: '2021-08-03 08:30',
-            payCode: 'F129393471020381230DF',
-            product: '가방',
-            user_id: 'testuser',
-            user_name: '테스트 사용자',
-            login_id: 'testuser',
-            name: '테스트유저',
-            email: 'test@test.com',
-            phone_number: '010-1234-1234',
-            created_at: '2021년 8월 6일',
-        },
-    ],
-};

@@ -48,8 +48,20 @@ function* appInitSaga() {
     yield put({ type: _Types.END_APP_LOADING }); // 공통 로딩 끝.
 }
 
+function* changeListpageNumberSaga(data: { payload: { current: number; pageSize: number; total: number } }) {
+    yield put({
+        type: _Types.SET_LISTPAGE_DATA,
+        payload: {
+            current: data.payload.current,
+            pageSize: data.payload.pageSize,
+            total: data.payload.total,
+        },
+    });
+}
+
 function* onBaseSagaWatcher() {
     yield takeLatest(_Types.APP_INIT_START as any, appInitSaga);
+    yield takeLatest(_Types.CHANGE_LISTPAGE_DATA as any, changeListpageNumberSaga);
 }
 
 export default [fork(onBaseSagaWatcher)];

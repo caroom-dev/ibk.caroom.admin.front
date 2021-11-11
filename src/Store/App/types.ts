@@ -19,4 +19,7 @@ export const SET_LOGIN_STATE_FALSE = 'app/SET_LOGIN_STATE_FALSE';
 export const APP_PAGE_LOADING_START = 'app/APP_PAGE_LOADING_START';
 export const APP_PAGE_LOADING_END = 'app/APP_PAGE_LOADING_END';
 export const RESET_PAGE_LOADING = 'app/RESET_PAGE_LOADING';
+
+export const CHANGE_LISTPAGE_DATA = 'app/CHANGE_LISTPAGE_DATA';
+export const SET_LISTPAGE_DATA = 'app/SET_LISTPAGE_DATA';
 /* action type end */

@@ -44,8 +44,6 @@ export default function BiddingList() {
 
     useEffect(() => {
         const fnGetList = async () => {
-            console.debug('fnGetList');
-
             const response = await _API_.getBidding();
             if (response.status) {
                 setTableData({

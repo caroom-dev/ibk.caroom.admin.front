@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'StoreTypes';
 import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_NUMBER } from '@Constants';
+import { changeListPageDataAction } from '@Store/App';
 // import useActionMenu from './useActionMenu';
 
 function useDataTable({
@@ -12,6 +15,12 @@ function useDataTable({
     dataSource: any;
     updateEntityPath: any;
 }) {
+    const { storeListPageState } = useSelector((store: RootState) => ({
+        storeListPageState: store.app.listPageState,
+    }));
+
+    const dispatch = useDispatch();
+
     const pageSize = DEFAULT_PAGE_SIZE;
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
@@ -45,9 +54,22 @@ function useDataTable({
     };
 
     const handleTableChange = (pagination: any) => {
-        console.log('pagination:', pagination);
         setCurrentPage(pagination.current - 1);
+
+        dispatch(
+            changeListPageDataAction({
+                current: pagination.current,
+                total: pagination.total,
+                pageSize: pagination.pageSize,
+            })
+        );
     };
+
+    useEffect(() => {
+        if (storeListPageState.current > 0) {
+            setCurrentPage(storeListPageState.current - 1);
+        }
+    }, []);
 
     const DataTable = () => (
         <Table

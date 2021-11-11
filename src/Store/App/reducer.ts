@@ -33,6 +33,11 @@ const initialState: AppState = {
             '061': [],
         },
     },
+    listPageState: {
+        current: 0,
+        pageSize: 0,
+        total: 0,
+    },
 };
 
 export const AppSagaReducer = createReducer<AppState>(initialState, {
@@ -84,6 +89,14 @@ export const AppSagaReducer = createReducer<AppState>(initialState, {
     [_Types.SET_LOGIN_STATE_FALSE]: (state: AppState) => {
         return produce(state, draft => {
             draft.loginState = false;
+        });
+    },
+    [_Types.SET_LISTPAGE_DATA]: (
+        state: AppState,
+        action: SagaAction<{ current: number; pageSize: number; total: number }>
+    ) => {
+        return produce(state, draft => {
+            draft.listPageState = action.payload;
         });
     },
 });

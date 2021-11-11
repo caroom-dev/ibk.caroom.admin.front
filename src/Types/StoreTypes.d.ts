@@ -16,6 +16,11 @@ declare module 'StoreTypes' {
         common: {
             codes: Codes,
         };
+        listPageState: {
+            current: number;
+            pageSize: number;
+            total: number;
+        }
     }
 
     // 인증 스토어.

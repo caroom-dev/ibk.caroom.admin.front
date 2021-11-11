@@ -23,10 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # environment config file
-project/*
-project/local.env
-!project/develop.env
-!project/production.env
+.config
+!.config/develop.env
+!.config/production.env
 .env
 
 # idea

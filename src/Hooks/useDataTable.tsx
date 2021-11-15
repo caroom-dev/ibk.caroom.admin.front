@@ -22,19 +22,19 @@ function useDataTable({
     const dispatch = useDispatch();
 
     const pageSize = DEFAULT_PAGE_SIZE;
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const [selectedRow, setSelectedRow] = useState(null);
+    const [selectedRowKeys] = useState([]);
+    const [selectedRow, setSelectedRow] = useState<any>(null);
     const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_NUMBER);
     // const [actionColumnView] = useActionMenu({ selectedRow, updateEntityPath });
 
     const hasSelected = selectedRowKeys.length > 0;
 
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: (selected: any) => {
-            setSelectedRowKeys(selected);
-        },
-    };
+    // const rowSelection = {
+    //     selectedRowKeys,
+    //     onChange: (selected: any) => {
+    //         setSelectedRowKeys(selected);
+    //     },
+    // };
 
     const updatedColumns = [
         ...columns,
@@ -71,15 +71,20 @@ function useDataTable({
         }
     }, []);
 
+    // useEffect(() => {
+    //     console.debug(selectedRow);
+    // }, [selectedRow]);
+
     const DataTable = () => (
         <Table
             rowKey={record => record.key}
-            rowSelection={rowSelection}
+            // rowSelection={rowSelection}
             columns={updatedColumns}
             dataSource={dataSource.content}
             onRow={record => {
                 return {
                     onClick: () => {
+                        // console.debug(record);
                         setSelectedRow(record);
                     },
                 };

@@ -4,12 +4,14 @@ import { useDataTable } from '@Hooks';
 import * as constants from '@Src/Data/BiddingList';
 import * as _API_ from '@API';
 import { message } from 'antd';
+import History from '@Module/History';
 
 export default function BiddingList() {
     // const { loadingControl } = useLoading();
     const [tableData, setTableData] = useState<{
         totalElements: number;
         content: Array<{
+            key: number;
             id: number;
             uuid: string;
             bidding: {
@@ -32,15 +34,19 @@ export default function BiddingList() {
         totalElements: 0,
         content: [],
     });
-    const { DataTable, hasSelected } = useDataTable({
+    const { DataTable, selectedRow } = useDataTable({
         columns: constants.columns,
         dataSource: tableData,
         updateEntityPath: 'pages/update-main-slide',
     });
 
-    const deleteMainSlide = () => {
-        //
-    };
+    useEffect(() => {
+        if (selectedRow) {
+            History.push({
+                pathname: process.env.PUBLIC_URL + `/bidding/${selectedRow.key}/bidding-detail`,
+            });
+        }
+    }, [selectedRow]);
 
     useEffect(() => {
         const fnGetList = async () => {
@@ -50,6 +56,7 @@ export default function BiddingList() {
                     totalElements: response.payload.length,
                     content: response.payload.map(item => {
                         return {
+                            key: item.id,
                             id: item.id,
                             uuid: item.uuid,
                             bidding: {
@@ -80,7 +87,7 @@ export default function BiddingList() {
 
     return (
         <>
-            <PageHeader addNewPath="pages/add-main-slide" hasSelected={hasSelected} handleDelete={deleteMainSlide} />
+            <PageHeader />
             <DataTable />
         </>
     );

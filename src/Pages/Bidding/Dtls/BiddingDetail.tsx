@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Divider, Row, Image, Card, Col, message, Descriptions, Form, Button, Input, Select } from 'antd';
+import { Link } from 'react-router-dom';
+import { Divider, Row, Image, Card, Col, message, Descriptions, Form, Button, Input, Select, List } from 'antd';
 // import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import * as _API_ from '@API';
 import { useParams } from 'react-router-dom';
@@ -67,7 +68,12 @@ export default function BiddingDetail() {
         brand: string;
         model: string;
         class: string;
+        fueltype: string;
+        drivetype: string;
+        colorname: string;
+        passengercapacity: number;
         accountName: string;
+        account_phone: string;
         biddingPrice: string;
         carOption: Array<{
             id: number;
@@ -80,18 +86,45 @@ export default function BiddingDetail() {
         pay_area: string;
         pay_gubun: string;
         end_at: string;
+        estimates: Array<{
+            id: number;
+            uuid: string;
+            account_id: number;
+            discount: {
+                number: number;
+                string: string;
+            };
+            category: {
+                code_id: string;
+                code_name: string;
+                eng_name: '';
+            };
+            account: {
+                name: string;
+                position: string;
+                companyName: string;
+                rating: string;
+            };
+            goods: [];
+        }>;
     }>({
         image: '',
         brand: '',
         model: '',
         class: '',
+        colorname: '',
+        passengercapacity: 0,
+        fueltype: '',
+        drivetype: '',
         accountName: '',
+        account_phone: '',
         biddingPrice: '',
         carOption: [],
         consults: [],
         pay_area: '',
         pay_gubun: '',
         end_at: '',
+        estimates: [],
     });
 
     const onFinish = async (values: {
@@ -158,7 +191,12 @@ export default function BiddingDetail() {
                     brand: payload.bidding.brand,
                     model: payload.bidding.model,
                     class: payload.bidding.class,
+                    colorname: payload.bidding.color.name,
+                    fueltype: payload.bidding.fueltype,
+                    drivetype: payload.bidding.drivetype,
+                    passengercapacity: payload.bidding.passengercapacity,
                     accountName: payload.bidding.account_name,
+                    account_phone: payload.bidding.account_phone,
                     biddingPrice: payload.bidding.price.string,
                     carOption: payload.bidding.car_option.map(item => {
                         return {
@@ -175,6 +213,7 @@ export default function BiddingDetail() {
                     pay_area: payload.bidding.option.pay_area.code_name,
                     pay_gubun: payload.bidding.pay_gubun.code_name,
                     end_at: payload.bidding.end_at,
+                    estimates: payload.bidding.estimates,
                 });
             } else {
                 message.error(response.message);
@@ -201,6 +240,14 @@ export default function BiddingDetail() {
         fnGetEstimateSevice().then();
     }, []);
 
+    const carOption = (): any => {
+        return initialValueData.carOption.length > 0
+            ? initialValueData.carOption.map(item => {
+                  return `${item.name} : ${item.price}\n`;
+              })
+            : [];
+    };
+
     return (
         <Card title="입찰 상세" loading={cardLoading}>
             <Row justify="center">
@@ -213,16 +260,18 @@ export default function BiddingDetail() {
                         <Descriptions.Item label="Brand">{initialValueData.brand}</Descriptions.Item>
                         <Descriptions.Item label="Model">{initialValueData.model}</Descriptions.Item>
                         <Descriptions.Item label="Class">{initialValueData.class}</Descriptions.Item>
-                        <Descriptions.Item label="회원 이름">{initialValueData.accountName}</Descriptions.Item>
+                        <Descriptions.Item label="색상">{initialValueData.colorname}</Descriptions.Item>
+                        <Descriptions.Item label="fueltype">{initialValueData.fueltype}</Descriptions.Item>
+                        <Descriptions.Item label="drivetype">{initialValueData.drivetype}</Descriptions.Item>
+                        <Descriptions.Item label="인승">{initialValueData.passengercapacity} 인</Descriptions.Item>
+                        <Descriptions.Item label="회원">
+                            {initialValueData.accountName}({initialValueData.account_phone})
+                        </Descriptions.Item>
                         <Descriptions.Item label="금액" span={2}>
                             {initialValueData.biddingPrice}
                         </Descriptions.Item>
                         <Descriptions.Item label="자동차 옵션" span={3}>
-                            {(function () {
-                                return initialValueData.carOption.map(item => {
-                                    return `${item.name} : ${item.price}|`;
-                                });
-                            })()}
+                            <Input.TextArea rows={4} defaultValue={String(carOption())} />
                         </Descriptions.Item>
                         <Descriptions.Item label="Consults" span={3}>
                             {(function () {
@@ -242,6 +291,23 @@ export default function BiddingDetail() {
 
                     <Divider />
 
+                    <Divider orientation="left">견적 리스트</Divider>
+                    <List
+                        bordered
+                        dataSource={
+                            initialValueData.estimates.length > 0
+                                ? initialValueData.estimates.map(item => {
+                                      return (
+                                          <Link to={`/bidding/${item.id}/estimate-detail`}>
+                                              {item.id} {item.account.name} {item.category.code_name}{' '}
+                                              {item.discount.string}
+                                          </Link>
+                                      );
+                                  })
+                                : []
+                        }
+                        renderItem={item => <List.Item>{item}</List.Item>}
+                    />
                     <Divider />
                 </Col>
 

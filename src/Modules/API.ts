@@ -84,12 +84,16 @@ export function getBiddingDetail(id: number): Promise<
             brand: string;
             model: string;
             class: string;
+            fueltype: string;
+            drivetype: string;
+            passengercapacity: number;
             color: {
                 image: string;
                 name: string;
                 rgb: string;
             };
             account_name: string;
+            account_phone: string;
             price: {
                 number: number;
                 string: string;
@@ -149,6 +153,27 @@ export function getBiddingDetail(id: number): Promise<
             };
             bidding_second: number;
             end_at: string;
+            estimates: Array<{
+                id: number;
+                uuid: string;
+                account_id: number;
+                discount: {
+                    number: number;
+                    string: string;
+                };
+                category: {
+                    code_id: string;
+                    code_name: string;
+                    eng_name: '';
+                };
+                account: {
+                    name: string;
+                    position: string;
+                    companyName: string;
+                    rating: string;
+                };
+                goods: [];
+            }>;
         };
     }>
 > {

@@ -6,6 +6,7 @@ import * as _API_ from '@API';
 import { message } from 'antd';
 // import { getBiddingEstimate } from '@API';
 import { useParams } from 'react-router-dom';
+import History from '@Module/History';
 
 export default function BiddingList() {
     // const history = useHistory();
@@ -14,6 +15,7 @@ export default function BiddingList() {
     const [tableData, setTableData] = useState<{
         totalElements: number;
         content: Array<{
+            key: number;
             id: number;
             account_id: number;
             discount: string;
@@ -24,26 +26,30 @@ export default function BiddingList() {
         totalElements: 0,
         content: [],
     });
-    const { DataTable, hasSelected } = useDataTable({
+    const { DataTable, selectedRow } = useDataTable({
         columns: constants.columns,
         dataSource: tableData,
         updateEntityPath: 'pages/update-main-slide',
     });
 
-    const deleteMainSlide = () => {
-        //
-    };
+    useEffect(() => {
+        if (selectedRow) {
+            History.push({
+                pathname: process.env.PUBLIC_URL + `/bidding/${selectedRow.key}/estimate-detail`,
+            });
+        }
+    }, [selectedRow]);
 
     useEffect(() => {
         const fnGetList = async () => {
             const response = await _API_.getBiddingEstimate(Number(params.id));
-            console.debug(response);
             if (response.status) {
                 const payload = response.payload;
                 setTableData({
                     totalElements: payload.length,
                     content: payload.map(item => {
                         return {
+                            key: item.id,
                             id: item.id,
                             account_id: item.account_id,
                             discount: item.discount.string,
@@ -64,7 +70,7 @@ export default function BiddingList() {
 
     return (
         <>
-            <PageHeader addNewPath="pages/add-main-slide" hasSelected={hasSelected} handleDelete={deleteMainSlide} />
+            <PageHeader />
             <DataTable />
         </>
     );

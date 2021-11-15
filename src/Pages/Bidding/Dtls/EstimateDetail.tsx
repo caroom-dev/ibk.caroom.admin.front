@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Divider, Row, Image, Card, Col, message, Descriptions } from 'antd';
+import { Divider, Row, Image, Card, Col, message, Descriptions, Input } from 'antd';
 // import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import * as _API_ from '@API';
 import { useParams } from 'react-router-dom';
@@ -17,6 +17,7 @@ export default function EstimateDetail() {
         category: string;
         accountName: string;
         discount: string;
+        memo: string;
         goods: Array<{
             gubun: string;
             name: string;
@@ -26,6 +27,7 @@ export default function EstimateDetail() {
         category: '',
         accountName: '',
         discount: '',
+        memo: '',
         goods: [],
     });
 
@@ -40,6 +42,7 @@ export default function EstimateDetail() {
                     category: payload.category.code_name,
                     accountName: payload.account.name,
                     discount: payload.estimate.discount.string,
+                    memo: payload.estimate.memo,
                     goods: payload.estimate.goods,
                 });
             } else {
@@ -72,6 +75,9 @@ export default function EstimateDetail() {
                                     return ` ${item.gubun} : ${item.name}|`;
                                 });
                             })()}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="자동차 옵션" span={3}>
+                            <Input.TextArea rows={4} defaultValue={initialValueData.memo} />
                         </Descriptions.Item>
                     </Descriptions>
                     <Divider />

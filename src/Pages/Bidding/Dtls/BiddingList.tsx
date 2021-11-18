@@ -60,17 +60,17 @@ export default function BiddingList() {
         setBrandSelect(Number(value));
     }
 
-    function onBlur() {
-        console.log('blur');
-    }
+    // function onBlur() {
+    //     console.log('blur');
+    // }
 
     function onFocus() {
         console.log('focus');
     }
 
-    function onSearch(val: any) {
-        console.log('search:', val);
-    }
+    // function onSearch(val: any) {
+    //     console.log('search:', val);
+    // }
 
     // function biddingSearch(search: string) {
     //     setSearchName(search);

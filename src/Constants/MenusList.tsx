@@ -24,6 +24,10 @@ export const menus = [
                 name: '입찰 리스트',
                 key: 'bidding-list',
             },
+            {
+                name: '채팅 리스트',
+                key: 'chat-list',
+            },
         ],
     },
 ];

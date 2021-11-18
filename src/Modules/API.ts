@@ -260,6 +260,7 @@ export function getEstimateSevice(): Promise<
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/estimate-sevice`, payload: { data: {} } });
 }
 
+// 견적서 보내기(관리자용)
 export function sendEstimates(
     id: number,
     payload: {
@@ -274,4 +275,57 @@ export function sendEstimates(
     }
 ): Promise<CommonTypes.ServiceResponse<{ message: string }>> {
     return _Axios_({ method: 'post', url: `/v2/admin/bidding/${id}/estimate-apply`, payload: payload });
+}
+
+// 입찰 참여 리스트
+export function getBiddingEstimateChatList(): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            id: number;
+            uuid: string;
+            bidding_id: number;
+            brand_name: string;
+            model_name: string;
+            class_name: string;
+            estimate_id: number;
+            cd_id: number;
+            cd_name: string;
+            cr_id: number;
+            cr_name: string;
+            type: string;
+            chatreceive: boolean;
+            cretated_at: string;
+        }>
+    >
+> {
+    return _Axios_({ method: 'get', url: `/v2/admin/bidding/chat-list`, payload: { data: {} } });
+}
+
+// 입찰 채팅 상세
+export function getBiddingEstimateChatDetail(uuid: string): Promise<
+    CommonTypes.ServiceResponse<{
+        id: number;
+        uuid: string;
+        bidding_id: number;
+        brand_name: string;
+        model_name: string;
+        class_name: string;
+        estimate_id: number;
+        cd_id: number;
+        cd_name: string;
+        cr_id: number;
+        cr_name: string;
+        type: string;
+        chatreceive: true;
+        cretated_at: string;
+        message: string;
+        receive: {
+            id: number;
+            message: string;
+            cretated_at: string;
+            contact: string;
+        };
+    }>
+> {
+    return _Axios_({ method: 'get', url: `/v2/admin/bidding/${uuid}/chat-detail`, payload: { data: {} } });
 }

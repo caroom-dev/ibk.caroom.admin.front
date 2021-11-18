@@ -179,3 +179,13 @@ export const isValidEmail = (emailString: string) => {
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return emailChack.test(String(emailString).toLowerCase());
 };
+
+export const stringEnterToPtag = (text: string) => {
+
+    let result = '';
+    result = "<p>" + text + "</p>";
+    result = result.replace(/\r\n\r\n/g, "</p><p>").replace(/\n\n/g, "</p><p>");
+    result = result.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
+
+    return result;
+}

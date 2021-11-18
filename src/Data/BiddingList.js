@@ -56,7 +56,7 @@ export const columns = [
         // render: text => <a>{text}</a>,
     },
     {
-        title: '지역',
+        title: '색',
         dataIndex: 'bidding',
         key: 'bidding',
         render: bidding => <a>{bidding.colors_name}</a>,

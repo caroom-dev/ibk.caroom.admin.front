@@ -51,6 +51,17 @@
             "name": "견적 상세.",
             "routeName": "/bidding/:id/estimate-detail",
             "componentName": "Bidding/EstimateDetailPage"
+        },
+        {
+            "name": "채팅 목록.",
+            "routeName": "/bidding/chat-list",
+            "componentName": "Bidding/ChatListPage"
+        },
+        {
+            "name": "채팅 상세.",
+            "routeName": "/bidding/:uuid/chat-detail",
+            "componentName": "Bidding/ChatDetailPage"
         }
+
     ]
 }

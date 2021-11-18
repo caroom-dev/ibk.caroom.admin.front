@@ -15,6 +15,12 @@ declare module 'StoreTypes' {
         };
         common: {
             codes: Codes,
+            car: {
+                brand: Array<{
+                    id : number,
+                    name: string,
+                }>
+            }
         };
         listPageState: {
             current: number;

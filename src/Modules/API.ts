@@ -21,7 +21,7 @@ export function login(payload: {
 }
 
 // 입찰 리스트
-export function getBidding(): Promise<
+export function getBidding({ brand, searchName }: { brand: number | null; searchName: string | null }): Promise<
     CommonTypes.ServiceResponse<
         Array<{
             id: number;
@@ -40,7 +40,14 @@ export function getBidding(): Promise<
         }>
     >
 > {
-    return _Axios_({ method: 'get', url: '/v2/admin/bidding/bidding-list', payload: { data: {} } });
+    return _Axios_({
+        method: 'post',
+        url: '/v2/admin/bidding/bidding-list',
+        payload: {
+            brand: brand,
+            searchName: searchName,
+        },
+    });
 }
 
 // 입찰 참여 리스트

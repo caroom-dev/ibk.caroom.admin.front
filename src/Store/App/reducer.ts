@@ -32,6 +32,9 @@ const initialState: AppState = {
             '060': [],
             '061': [],
         },
+        car: {
+            brand: [],
+        },
     },
     listPageState: {
         current: 0,
@@ -61,9 +64,13 @@ export const AppSagaReducer = createReducer<AppState>(initialState, {
             draft.service_message = action.payload.message;
         });
     },
-    [_Types.COMMON_DATA]: (state: AppState, action: SagaAction<{ codes: Codes }>) => {
+    [_Types.COMMON_DATA]: (
+        state: AppState,
+        action: SagaAction<{ codes: Codes; car: { brand: Array<{ id: number; name: string }> } }>
+    ) => {
         return produce(state, draft => {
             draft.common.codes = action.payload.codes;
+            draft.common.car = action.payload.car;
         });
     },
     [_Types.APP_PAGE_LOADING_START]: (state: AppState) => {

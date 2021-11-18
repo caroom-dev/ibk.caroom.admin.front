@@ -31,6 +31,7 @@ function* appInitSaga() {
             type: _Types.COMMON_DATA,
             payload: {
                 codes: serverBaseData.payload.codes,
+                car: serverBaseData.payload.car,
             },
         });
 

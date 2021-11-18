@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { PageHeader } from '@Layouts';
 import { useDataTable } from '@Hooks';
 import * as constants from '@Src/Data/BiddingList';
 import * as _API_ from '@API';
-import { message, Row, Col, Input, Divider, Select } from 'antd';
+import { message, Row, Col, Input, Divider, Select, Button } from 'antd';
 import History from '@Module/History';
 import { useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
@@ -14,7 +14,7 @@ export default function BiddingList() {
         storeBrand: store.app.common.car.brand,
     }));
 
-    const [brandSelect, setBrandSelect] = useState<number | null>();
+    const [brandSelect, setBrandSelect] = useState<number | ''>();
     const [searchName, setSearchName] = useState<string | null>();
     const [tableData, setTableData] = useState<{
         totalElements: number;
@@ -64,9 +64,9 @@ export default function BiddingList() {
     //     console.log('blur');
     // }
 
-    function onFocus() {
-        console.log('focus');
-    }
+    // function onFocus() {
+    //     console.log('focus');
+    // }
 
     // function onSearch(val: any) {
     //     console.log('search:', val);
@@ -77,7 +77,18 @@ export default function BiddingList() {
     //     getBiddingList();
     // }
 
-    const getBiddingList = async () => {
+    const handleResetButtonClick = () => {
+        setBrandSelect('');
+        setSearchName(null);
+
+        getBiddingList();
+    };
+
+    const getBiddingList = useCallback(async () => {
+        setTableData({
+            totalElements: 0,
+            content: [],
+        });
         const paylaod = {
             brand: brandSelect ? brandSelect : null,
             searchName: searchName ? searchName : null,
@@ -113,7 +124,7 @@ export default function BiddingList() {
         } else {
             message.error(response.message);
         }
-    };
+    }, []);
 
     useEffect(() => {
         const fnGetList = () => {
@@ -134,12 +145,14 @@ export default function BiddingList() {
                         placeholder="브랜드를 선택해 주세요"
                         optionFilterProp="children"
                         onChange={onChange}
-                        onFocus={onFocus}
+                        // onFocus={onFocus}
                         onBlur={() => getBiddingList()}
                         onSearch={() => getBiddingList()}
                         // filterOption={(input, option) =>
                         //     // option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                         // }
+                        defaultValue={brandSelect ? brandSelect : undefined}
+                        value={brandSelect ? brandSelect : undefined}
                     >
                         {storeBrand &&
                             storeBrand.map(item => {
@@ -158,7 +171,14 @@ export default function BiddingList() {
                         allowClear
                         style={{ float: 'left', width: 350 }}
                         onChange={(e: any) => setSearchName(e.target.value)}
+                        defaultValue={searchName ? searchName : undefined}
+                        value={searchName ? searchName : undefined}
                     />
+                </Col>
+                <Col>
+                    <Button type="primary" onClick={() => handleResetButtonClick()}>
+                        초기화
+                    </Button>
                 </Col>
             </Row>
             <Divider />

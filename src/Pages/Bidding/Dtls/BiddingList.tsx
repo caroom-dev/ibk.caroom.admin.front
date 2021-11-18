@@ -135,8 +135,8 @@ export default function BiddingList() {
                         optionFilterProp="children"
                         onChange={onChange}
                         onFocus={onFocus}
-                        onBlur={onBlur}
-                        onSearch={onSearch}
+                        onBlur={() => getBiddingList()}
+                        onSearch={() => getBiddingList()}
                         // filterOption={(input, option) =>
                         //     // option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                         // }

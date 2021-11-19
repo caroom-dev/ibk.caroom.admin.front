@@ -51,192 +51,19 @@ export function getBidding({ brand, searchName }: { brand: number | null; search
 }
 
 // 입찰 참여 리스트
-export function getBiddingEstimate(id: number): Promise<
-    CommonTypes.ServiceResponse<
-        Array<{
-            id: number;
-            uuid: string;
-            account_id: number;
-            discount: {
-                number: number;
-                string: string;
-            };
-            category: {
-                code_id: string;
-                code_name: string;
-                eng_name: '';
-            };
-            account: {
-                name: string;
-                position: string;
-                companyName: string;
-                rating: string;
-            };
-            goods: Array<{
-                gubun: string;
-                brand: string;
-                model: string;
-            }>;
-        }>
-    >
-> {
+export function getBiddingEstimate(
+    id: number
+): Promise<CommonTypes.ServiceResponse<Array<CommonTypes.estimatelistItem>>> {
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/${id}/bidding-estimate-list`, payload: { data: {} } });
 }
 
 // 입찰 상세.
-export function getBiddingDetail(id: number): Promise<
-    CommonTypes.ServiceResponse<{
-        uuid: string;
-        bidding: {
-            brand: string;
-            model: string;
-            class: string;
-            fueltype: string;
-            drivetype: string;
-            passengercapacity: number;
-            color: {
-                image: string;
-                name: string;
-                rgb: string;
-            };
-            account_name: string;
-            account_phone: string;
-            price: {
-                number: number;
-                string: string;
-            };
-            car_option: [
-                {
-                    id: number;
-                    name: string;
-                    price: {
-                        number: number;
-                        string: string;
-                    };
-                },
-                {
-                    id: number;
-                    name: string;
-                    price: {
-                        number: number;
-                        string: string;
-                    };
-                },
-                {
-                    id: number;
-                    name: string;
-                    price: {
-                        number: 10000000;
-                        string: string;
-                    };
-                }
-            ];
-            option: {
-                consults: [
-                    {
-                        code_id: string;
-                        code_name: string;
-                        eng_name: '';
-                    },
-                    {
-                        code_id: string;
-                        code_name: string;
-                        eng_name: '';
-                    },
-                    {
-                        code_id: string;
-                        code_name: string;
-                        eng_name: '';
-                    }
-                ];
-                pay_area: {
-                    code_id: string;
-                    code_name: string;
-                };
-            };
-            pay_gubun: {
-                code_id: string;
-                code_name: string;
-            };
-            bidding_second: number;
-            end_at: string;
-            estimates: Array<{
-                id: number;
-                uuid: string;
-                account_id: number;
-                discount: {
-                    number: number;
-                    string: string;
-                };
-                category: {
-                    code_id: string;
-                    code_name: string;
-                    eng_name: '';
-                };
-                account: {
-                    name: string;
-                    position: string;
-                    companyName: string;
-                    rating: string;
-                };
-                goods: [];
-            }>;
-        };
-    }>
-> {
+export function getBiddingDetail(id: number): Promise<CommonTypes.ServiceResponse<CommonTypes.BiddingDetail>> {
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/${id}/bidding-detail`, payload: { data: {} } });
 }
 
 // 견적 상세.
-export function getBiddingEstimateDetail(id: number): Promise<
-    CommonTypes.ServiceResponse<{
-        id: number;
-        category: {
-            code_id: string;
-            code_name: string;
-        };
-        account: {
-            name: string;
-            position: string;
-            companyName: string;
-            rating: string;
-        };
-        car: {
-            brand: string;
-            model: string;
-            class: string;
-            color: string;
-            image: string;
-            rgb: string;
-            price: {
-                number: number;
-                string: string;
-            };
-            option_price: {
-                number: number;
-                string: string;
-            };
-            options: Array<{
-                name: string;
-                price: {
-                    number: number;
-                    string: string;
-                };
-            }>;
-        };
-        estimate: {
-            discount: {
-                number: number;
-                string: string;
-            };
-            goods: Array<{
-                gubun: string;
-                name: string;
-            }>;
-            memo: string;
-        };
-    }>
-> {
+export function getBiddingEstimateDetail(id: number): Promise<CommonTypes.ServiceResponse<CommonTypes.EstimateDetail>> {
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/${id}/bidding-estimate-detail`, payload: { data: {} } });
 }
 

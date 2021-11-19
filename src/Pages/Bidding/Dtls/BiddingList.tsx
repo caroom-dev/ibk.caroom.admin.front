@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { PageHeader } from '@Layouts';
 import { useDataTable } from '@Hooks';
 import * as constants from '@Src/Data/BiddingList';
@@ -7,6 +7,14 @@ import { message, Row, Col, Input, Divider, Select, Button } from 'antd';
 import History from '@Module/History';
 import { useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
+
+const getBrand = (brand: number | '' | undefined) => {
+    return brand;
+};
+
+const getSearchName = (brand: string | null | undefined) => {
+    return brand;
+};
 
 export default function BiddingList() {
     // const { loadingControl } = useLoading();
@@ -48,6 +56,9 @@ export default function BiddingList() {
         updateEntityPath: 'pages/update-main-slide',
     });
 
+    const brand = useMemo(() => getBrand(brandSelect), [brandSelect]);
+    const name = useMemo(() => getSearchName(searchName), [searchName]);
+
     useEffect(() => {
         if (selectedRow) {
             History.push({
@@ -77,21 +88,21 @@ export default function BiddingList() {
     //     getBiddingList();
     // }
 
-    const handleResetButtonClick = () => {
+    const handleResetButtonClick = useCallback(() => {
         setBrandSelect('');
-        setSearchName(null);
+        setSearchName('');
 
         getBiddingList();
-    };
+    }, []);
 
-    const getBiddingList = useCallback(async () => {
+    const getBiddingList = async () => {
         setTableData({
             totalElements: 0,
             content: [],
         });
         const paylaod = {
-            brand: brandSelect ? brandSelect : null,
-            searchName: searchName ? searchName : null,
+            brand: brand ? brand : null,
+            searchName: name ? name : null,
         };
 
         const response = await _API_.getBidding(paylaod);
@@ -124,7 +135,7 @@ export default function BiddingList() {
         } else {
             message.error(response.message);
         }
-    }, []);
+    };
 
     useEffect(() => {
         const fnGetList = () => {

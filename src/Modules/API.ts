@@ -285,7 +285,15 @@ export function sendEstimates(
 }
 
 // 입찰 참여 리스트
-export function getBiddingEstimateChatList(): Promise<
+export function getBiddingEstimateChatList({
+    brand,
+    cr_name,
+    cd_name,
+}: {
+    brand: number | null;
+    cr_name: string | null;
+    cd_name: string | null;
+}): Promise<
     CommonTypes.ServiceResponse<
         Array<{
             id: number;
@@ -305,7 +313,15 @@ export function getBiddingEstimateChatList(): Promise<
         }>
     >
 > {
-    return _Axios_({ method: 'get', url: `/v2/admin/bidding/chat-list`, payload: { data: {} } });
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/bidding/chat-list`,
+        payload: {
+            brand: brand,
+            cd_name: cd_name,
+            cr_name: cr_name,
+        },
+    });
 }
 
 // 입찰 채팅 상세

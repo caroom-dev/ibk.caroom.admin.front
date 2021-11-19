@@ -63,6 +63,20 @@ export const columns = [
         // render: text => <a>{text}</a>,
     },
     {
+        title: '시작 시간',
+        dataIndex: 'created_at',
+        key: 'created_at',
+        render: created_at => <a>{created_at}</a>,
+        // render: text => <a>{text}</a>,
+    },
+    {
+        title: '종료 시간',
+        dataIndex: 'end_at',
+        key: 'end_at',
+        render: end_at => <a>{end_at}</a>,
+        // render: text => <a>{text}</a>,
+    },
+    {
         title: '참여',
         dataIndex: 'estimate',
         key: 'estimate',

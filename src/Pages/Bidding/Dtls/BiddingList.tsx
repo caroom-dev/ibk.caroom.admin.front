@@ -45,6 +45,8 @@ export default function BiddingList() {
                 id: number;
                 count: number;
             };
+            created_at: string;
+            end_at: string;
         }>;
     }>({
         totalElements: 0,
@@ -129,6 +131,8 @@ export default function BiddingList() {
                             id: item.id,
                             count: item.estimate_count,
                         },
+                        created_at: item.created_at,
+                        end_at: item.end_at,
                     };
                 }),
             });

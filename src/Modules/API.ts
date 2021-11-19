@@ -37,6 +37,8 @@ export function getBidding({ brand, searchName }: { brand: number | null; search
                 name: string;
             };
             estimate_count: number;
+            created_at: string;
+            end_at: string;
         }>
     >
 > {

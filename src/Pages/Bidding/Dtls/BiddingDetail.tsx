@@ -86,6 +86,7 @@ export default function BiddingDetail() {
         pay_area: string;
         pay_gubun: string;
         end_at: string;
+        created_at: string;
         estimates: Array<{
             id: number;
             uuid: string;
@@ -124,6 +125,7 @@ export default function BiddingDetail() {
         pay_area: '',
         pay_gubun: '',
         end_at: '',
+        created_at: '',
         estimates: [],
     });
 
@@ -213,6 +215,7 @@ export default function BiddingDetail() {
                     pay_area: payload.bidding.option.pay_area.code_name,
                     pay_gubun: payload.bidding.pay_gubun.code_name,
                     end_at: payload.bidding.end_at,
+                    created_at: payload.bidding.created_at,
                     estimates: payload.bidding.estimates,
                 });
             } else {
@@ -286,6 +289,7 @@ export default function BiddingDetail() {
                         </Descriptions.Item>
 
                         <Descriptions.Item label="구매">{initialValueData.pay_gubun}</Descriptions.Item>
+                        <Descriptions.Item label="시작">{initialValueData.created_at}</Descriptions.Item>
                         <Descriptions.Item label="종료">{initialValueData.end_at}</Descriptions.Item>
                     </Descriptions>
 

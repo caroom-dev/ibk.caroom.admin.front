@@ -129,6 +129,7 @@ declare module 'CommonTypes' {
             };
             bidding_second: number;
             end_at: string;
+            created_at: string;
             estimates: Array<{
                 id: number;
                 uuid: string;

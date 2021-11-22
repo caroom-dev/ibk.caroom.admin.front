@@ -181,3 +181,78 @@ export function getBiddingEstimateChatDetail(uuid: string): Promise<
 > {
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/${uuid}/chat-detail`, payload: { data: {} } });
 }
+
+// 티켓 구매 내역
+export function ticketAttempts({
+    brand,
+    cd_name,
+}: {
+    brand: number | null;
+    cd_name: string | null;
+}): Promise<CommonTypes.ServiceResponse<CommonTypes.ticketAttempts[]>> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/payment/ticket-attempts`,
+        payload: {
+            brand: brand,
+            cd_name: cd_name,
+        },
+    });
+}
+
+// 결제 내역 상세
+export function paymentDetail(p_oid: string): Promise<CommonTypes.ServiceResponse<CommonTypes.paymentDetail>> {
+    return _Axios_({
+        method: 'get',
+        url: `/v2/admin/payment/${p_oid}/payment-detail`,
+        payload: { data: {} },
+    });
+}
+
+// 환불 요청 리스트
+export function paymentRefundsList(): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            id: number;
+            account_id: number;
+            account_name: string;
+            p_oid: string;
+            ticket_id: number;
+            ticket_name: string;
+            status: string;
+            P_AMT: string;
+            P_STATUS: string;
+            created_at: string;
+        }>
+    >
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/v2/admin/payment/payment-refunds-list`,
+        payload: { data: {} },
+    });
+}
+
+// 환불 요청 상세
+export function paymentRefundsDetail(id: number): Promise<
+    CommonTypes.ServiceResponse<{
+        id: number;
+        account_id: number;
+        account_name: string;
+        p_oid: string;
+        ticket_id: number;
+        ticket_name: string;
+        contents: string;
+        status: string;
+        P_AMT: string;
+        P_STATUS: string;
+        created_at: string;
+        detail: CommonTypes.paymentDetail;
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/v2/admin/payment/${id}/payment-refunds-detail`,
+        payload: { data: {} },
+    });
+}

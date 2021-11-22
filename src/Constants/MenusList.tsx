@@ -30,4 +30,19 @@ export const menus = [
             },
         ],
     },
+    {
+        name: '결제',
+        key: 'payment',
+        icon: <PartitionOutlined />,
+        list: [
+            {
+                name: '구매 내역',
+                key: 'ticket-attempts',
+            },
+            {
+                name: '환불 신청',
+                key: 'payment-refunds-list',
+            },
+        ],
+    },
 ];

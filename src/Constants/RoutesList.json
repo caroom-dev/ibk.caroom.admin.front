@@ -61,7 +61,26 @@
             "name": "채팅 상세.",
             "routeName": "/bidding/:uuid/chat-detail",
             "componentName": "Bidding/ChatDetailPage"
+        },
+        {
+            "name": "티켓 구매.",
+            "routeName": "/payment/ticket-attempts",
+            "componentName": "Payment/TicketAttemptsPage"
+        },
+        {
+            "name": "티켓 상세.",
+            "routeName": "/payment/:p_oid/payment-detail",
+            "componentName": "Payment/PaymentDetailPage"
+        },
+        {
+            "name": "황불 신청.",
+            "routeName": "/payment/payment-refunds-list",
+            "componentName": "Payment/PaymentRefundsPage"
+        },
+        {
+            "name": "황불 신청 상세.",
+            "routeName": "/payment/:id/payment-refunds-detail",
+            "componentName": "Payment/PaymentRefundsDetailPage"
         }
-
     ]
 }

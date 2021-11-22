@@ -201,6 +201,62 @@ declare module 'CommonTypes' {
             memo: string;
         };
     }
+
+    export interface ticketAttempts {
+        id: number;
+        p_oid: string;
+        account_id: number;
+        account_email: string;
+        account_name: string;
+        ticket_name: string;
+        ticket_use_count: string;
+        ticket_price: string;
+        attempt: boolean;
+        result: {
+            status: string;
+            rmesg: string;
+            created_at: string;
+        } | null;
+        created_at: string;
+    }
+
+    export interface paymentDetail {
+        id: number;
+        account_id: number;
+        P_STATUS: string;
+        P_AUTH_DT: string;
+        P_AUTH_NO: string;
+        P_RMESG1: string;
+        P_RMESG2: string;
+        P_TID: string;
+        P_FN_CD1: string;
+        P_AMT: string;
+        P_TYPE: string;
+        P_UNAME: string;
+        P_MID: string;
+        P_OID: string;
+        P_NOTI: string;
+        P_NEXT_URL: string;
+        P_MNAME: string;
+        P_NOTEURL: string;
+        P_CARD_MEMBER_NUM: string;
+        P_CARD_NUM: string;
+        P_CARD_ISSUER_CODE: string;
+        P_CARD_PURCHASE_CODE: string;
+        P_CARD_PRTC_CODE: string;
+        P_CARD_INTEREST: string;
+        P_CARD_CHECKFLAG: string;
+        P_CARD_ISSUER_NAME: string;
+        P_CARD_PURCHASE_NAME: string;
+        P_FN_NM: string;
+        CARD_CorpFlag: string;
+        P_SRC_CODE: string;
+        P_MERCHANT_RESERVED: string;
+        P_CARD_APPLPRICE: string;
+        created_at: string;
+        updated_at: string;
+    }
+
     export interface Codes {
         '020': CodeItem[];
         '030': CodeItem[];

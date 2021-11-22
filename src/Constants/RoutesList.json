@@ -78,9 +78,24 @@
             "componentName": "Payment/PaymentRefundsPage"
         },
         {
-            "name": "황불 신청 상세.",
+            "name": "환불 신청 상세.",
             "routeName": "/payment/:id/payment-refunds-detail",
             "componentName": "Payment/PaymentRefundsDetailPage"
+        },
+        {
+            "name": "티켓 현황.",
+            "routeName": "/ticket/user-tickets",
+            "componentName": "Ticket/UserTicketPage"
+        },
+        {
+            "name": "티켓 현황 상세.",
+            "routeName": "/ticket/:user_id/user-ticket-detail",
+            "componentName": "Ticket/UserTicketDetailPage"
+        },
+        {
+            "name": "사용자 리스트(티켓 충전).",
+            "routeName": "/ticket/charge-tickets",
+            "componentName": "Ticket/ChargeTicketsPage"
         }
     ]
 }

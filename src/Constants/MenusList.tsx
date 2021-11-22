@@ -45,4 +45,19 @@ export const menus = [
             },
         ],
     },
+    {
+        name: '티켓',
+        key: 'ticket',
+        icon: <PartitionOutlined />,
+        list: [
+            {
+                name: '티켓 현황',
+                key: 'user-tickets',
+            },
+            {
+                name: '티켓 충전',
+                key: 'charge-tickets',
+            },
+        ],
+    },
 ];

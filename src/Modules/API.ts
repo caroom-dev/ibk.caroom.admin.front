@@ -256,3 +256,104 @@ export function paymentRefundsDetail(id: number): Promise<
         payload: { data: {} },
     });
 }
+
+// 회원 티켓 현황.
+export function userTickets({ brand, cd_name }: { brand: number | null; cd_name: string | null }): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            id: number;
+            name: string;
+            contact: string;
+            email: string;
+            brand: Array<number>;
+            ticket_count: number;
+        }>
+    >
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/ticket/user-tickets`,
+        payload: {
+            brand: brand,
+            cd_name: cd_name,
+        },
+    });
+}
+
+// 회원 티켓 상세.
+export function userTicketsDetail(user_id: number): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            id: number;
+            name: string;
+            ticket_name: string;
+            bonus: boolean;
+            memo: string;
+            use: null | Array<{
+                bidding: number;
+            }>;
+            created_at: string;
+        }>
+    >
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/v2/admin/ticket/${user_id}/user-ticket-detail`,
+        payload: { data: {} },
+    });
+}
+
+// 사용자 리스트(티켓 충전)
+export function userTotalList({ brand, cd_name }: { brand?: number | null; cd_name?: string | null }): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            id: number;
+            name: string;
+            email: string;
+            contact: string;
+            tickets_count: number;
+            cretated_at: string;
+        }>
+    >
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/ticket/user-total-list`,
+        payload: {
+            brand: brand,
+            cd_name: cd_name,
+        },
+    });
+}
+
+// 사용자 티켓 충전.
+export function userTotalCharge({
+    title,
+    account_id,
+    ticket_count,
+}: {
+    title: string;
+    account_id: number;
+    ticket_count: number;
+}): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            id: number;
+            name: string;
+            email: string;
+            contact: string;
+            tickets_count: number;
+            cretated_at: string;
+        }>
+    >
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/ticket/charge-user-ticket`,
+        payload: {
+            title: title,
+            account_id: account_id,
+            ticket_count: ticket_count,
+        },
+    });
+}

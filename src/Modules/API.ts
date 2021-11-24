@@ -357,3 +357,27 @@ export function userTotalCharge({
         },
     });
 }
+
+// 입찰 리포트 메시지.
+export function biddingReportMessage({ cd_name }: { cd_name: string }): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            id: number;
+            uuid: string;
+            bidding_id: number;
+            bidding_uuid: string;
+            estimate_id: number;
+            estimate_uuid: string;
+            account_id: number;
+            account_name: string;
+            message: string;
+            created_at: string;
+        }>
+    >
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/bidding/report-messages`,
+        payload: { cd_name: cd_name },
+    });
+}

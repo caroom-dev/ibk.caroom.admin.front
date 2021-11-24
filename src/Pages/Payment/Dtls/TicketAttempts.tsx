@@ -126,6 +126,11 @@ export default function TicketAttempts() {
             <PageHeader />
             <Row gutter={16}>
                 <Col>
+                    <Button type="primary" onClick={() => handleResetButtonClick()}>
+                        초기화
+                    </Button>
+                </Col>
+                <Col>
                     <Select
                         showSearch
                         style={{ width: 200 }}
@@ -161,11 +166,6 @@ export default function TicketAttempts() {
                         defaultValue={cdName ? cdName : undefined}
                         value={cdName ? cdName : undefined}
                     />
-                </Col>
-                <Col>
-                    <Button type="primary" onClick={() => handleResetButtonClick()}>
-                        초기화
-                    </Button>
                 </Col>
             </Row>
             <Divider />

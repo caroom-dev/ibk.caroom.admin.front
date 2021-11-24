@@ -63,6 +63,11 @@
             "componentName": "Bidding/ChatDetailPage"
         },
         {
+            "name": "채팅 목록.",
+            "routeName": "/bidding/report-messages",
+            "componentName": "Bidding/ReportMessagesPage"
+        },
+        {
             "name": "티켓 구매.",
             "routeName": "/payment/ticket-attempts",
             "componentName": "Payment/TicketAttemptsPage"

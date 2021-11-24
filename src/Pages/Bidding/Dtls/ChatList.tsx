@@ -130,6 +130,11 @@ export default function BiddingList() {
             <PageHeader />
             <Row gutter={16}>
                 <Col>
+                    <Button type="primary" onClick={() => handleResetButtonClick()}>
+                        초기화
+                    </Button>
+                </Col>
+                <Col>
                     <Select
                         showSearch
                         style={{ width: 200 }}
@@ -175,11 +180,6 @@ export default function BiddingList() {
                         defaultValue={crName ? crName : undefined}
                         value={crName ? crName : undefined}
                     />
-                </Col>
-                <Col>
-                    <Button type="primary" onClick={() => handleResetButtonClick()}>
-                        초기화
-                    </Button>
                 </Col>
             </Row>
             <Divider />

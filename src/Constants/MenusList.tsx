@@ -28,6 +28,10 @@ export const menus = [
                 name: '채팅 리스트',
                 key: 'chat-list',
             },
+            {
+                name: '리포트 메시지',
+                key: 'report-messages',
+            },
         ],
     },
     {

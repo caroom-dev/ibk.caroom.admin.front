@@ -63,9 +63,19 @@
             "componentName": "Bidding/ChatDetailPage"
         },
         {
-            "name": "채팅 목록.",
+            "name": "리포트 메시지 목록.",
             "routeName": "/bidding/report-messages",
             "componentName": "Bidding/ReportMessagesPage"
+        },
+        {
+            "name": "차트 목록",
+            "routeName": "/bidding/chart-list",
+            "componentName": "Bidding/ChartPage"
+        },
+        {
+            "name": "차트 상세",
+            "routeName": "/bidding/:class_id/charts-detail",
+            "componentName": "Bidding/ChartDetailPage"
         },
         {
             "name": "티켓 구매.",

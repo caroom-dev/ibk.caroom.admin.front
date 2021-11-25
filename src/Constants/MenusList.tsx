@@ -32,6 +32,10 @@ export const menus = [
                 name: '리포트 메시지',
                 key: 'report-messages',
             },
+            {
+                name: '차트',
+                key: 'chart-list',
+            },
         ],
     },
     {

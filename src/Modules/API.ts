@@ -381,3 +381,51 @@ export function biddingReportMessage({ cd_name }: { cd_name: string }): Promise<
         payload: { cd_name: cd_name },
     });
 }
+
+// 입찰 시세 목록 (그래프).
+export function chartList(): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            brand_id: number;
+            brand_name: string;
+            model_id: number;
+            model_name: string;
+            class_id: number;
+            class_name: string;
+            count: string;
+        }>
+    >
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/v2/admin/bidding/chart-list`,
+        payload: {},
+    });
+}
+
+// 입찰 시세 상세(그래프).
+export function chartDetail(class_id: number): Promise<
+    CommonTypes.ServiceResponse<{
+        brand_name: string;
+        model_name: string;
+        class_name: string;
+        graphData: Array<{
+            x: number;
+            y: number;
+            title: string;
+            name: string;
+        }>;
+        discountList: Array<{
+            bidding_id: number | null;
+            discount: number;
+            name: number;
+            created_at: string;
+        }>;
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/v2/admin/bidding/${class_id}/chart-detail`,
+        payload: {},
+    });
+}

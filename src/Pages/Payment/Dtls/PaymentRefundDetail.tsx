@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 export default function PaymentRefundDetail() {
     const params = useParams<{ id: string }>();
     const [cardLoading, setCardLoading] = useState(false);
+    const [memo, setMemo] = useState<string>('');
 
     const [initialValueData, setInitialValueData] = useState<{
         id: number;
@@ -24,8 +25,19 @@ export default function PaymentRefundDetail() {
         detail: CommonTypes.paymentDetail;
     }>();
 
-    const handleRefundDButtonClick = () => {
-        //
+    const handleRefundDButtonClick = async () => {
+        const response = await _API_.paymentRefund({
+            id: Number(params.id),
+            memo: memo,
+        });
+
+        if (response.status) {
+            History.push({
+                pathname: process.env.PUBLIC_URL + '/payment/payment-refunds-list',
+            });
+        } else {
+            message.error('처리중 문제가 발생 했습니다.');
+        }
     };
 
     useEffect(() => {
@@ -37,6 +49,7 @@ export default function PaymentRefundDetail() {
                 const payload = response.payload;
                 // console.debug(payload);
                 setInitialValueData(payload);
+                setMemo(payload.memo);
             } else {
                 message.error(response.message);
             }
@@ -89,16 +102,18 @@ export default function PaymentRefundDetail() {
             <Row justify="center">
                 <Col span={20}>
                     <Form.Item name="memo" label="메모" rules={[{ required: false }]}>
-                        <Input.TextArea rows={4} />
+                        <Input.TextArea rows={4} onChange={(e: any) => setMemo(e.target.value)} defaultValue={memo} />
                     </Form.Item>
                 </Col>
             </Row>
             <Row justify="center">
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" onClick={() => handleRefundDButtonClick()}>
-                        환불 처리.
-                    </Button>
-                </Form.Item>
+                {initialValueData && initialValueData.status === 'N' && (
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" onClick={() => handleRefundDButtonClick()}>
+                            환불 처리.
+                        </Button>
+                    </Form.Item>
+                )}
             </Row>
         </Card>
     );

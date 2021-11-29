@@ -242,6 +242,7 @@ export function paymentRefundsDetail(id: number): Promise<
         p_oid: string;
         ticket_id: number;
         ticket_name: string;
+        memo: string;
         contents: string;
         status: string;
         P_AMT: string;
@@ -254,6 +255,30 @@ export function paymentRefundsDetail(id: number): Promise<
         method: 'get',
         url: `/v2/admin/payment/${id}/payment-refunds-detail`,
         payload: { data: {} },
+    });
+}
+
+// 환불 처리.
+export function paymentRefund({ id, memo }: { id: number; memo: string }): Promise<
+    CommonTypes.ServiceResponse<{
+        id: number;
+        account_id: number;
+        account_name: string;
+        p_oid: string;
+        ticket_id: number;
+        ticket_name: string;
+        contents: string;
+        status: string;
+        P_AMT: string;
+        P_STATUS: string;
+        created_at: string;
+        detail: CommonTypes.paymentDetail;
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/payment/${id}/payment-refunds`,
+        payload: { memo: memo },
     });
 }
 

@@ -47,7 +47,7 @@ export default function ReportMessages() {
     useEffect(() => {
         if (selectedRow) {
             History.push({
-                pathname: process.env.PUBLIC_URL + `/bidding/${selectedRow.key}/bidding-detail`,
+                pathname: process.env.PUBLIC_URL + `/bidding/${selectedRow.data.bidding_id}/bidding-detail`,
             });
         }
     }, [selectedRow]);

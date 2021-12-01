@@ -62,7 +62,7 @@
     "build:test": "yarn build && serve -s build",
     "deploy:live1": "ssh caroom-live1 \"rm -rf /srv/services/client/ibk.caroom.co.kr/public/*\" && scp -r ./build/* caroom-live1:/srv/services/client/ibk.caroom.co.kr/public",
     "deploy:live2": "ssh caroom-live2 \"rm -rf /srv/services/client/ibk.caroom.co.kr/public/*\" && scp -r ./build/* caroom-live2:/srv/services/client/ibk.caroom.co.kr/public",
-    "deploy:live": "yarn build:prod && yarn deploy:live1 && yarn deploy:live2"
+    "deploy:live": "yarn build:prod && yarn deploy:live1"
   },
   "eslintConfig": {
     "extends": [

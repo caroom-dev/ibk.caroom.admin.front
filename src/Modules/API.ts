@@ -69,6 +69,11 @@ export function getBiddingEstimateDetail(id: number): Promise<CommonTypes.Servic
     return _Axios_({ method: 'get', url: `/v2/admin/bidding/${id}/bidding-estimate-detail`, payload: { data: {} } });
 }
 
+// 견적 삭제.
+export function deleteBiddingEstimate(id: number): Promise<CommonTypes.ServiceResponse<{ message: string }>> {
+    return _Axios_({ method: 'delete', url: `/v2/admin/bidding/${id}/bidding-estimate-delete`, payload: { data: {} } });
+}
+
 export function getEstimateSevice(): Promise<
     CommonTypes.ServiceResponse<{
         category: Array<{

@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Divider, Row, Image, Card, Col, message, Descriptions, Input } from 'antd';
+import { Divider, Row, Image, Card, Col, message, Descriptions, Input, Form, Button } from 'antd';
 // import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import * as _API_ from '@API';
 import { useParams } from 'react-router-dom';
 // import { getBiddingEstimateDetail } from '@API';
+import History from '@Module/History';
+// import { deleteBiddingEstimate } from '@API';
+
+const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+};
 
 export default function EstimateDetail() {
     // const history = useHistory();
@@ -30,6 +36,14 @@ export default function EstimateDetail() {
         memo: '',
         goods: [],
     });
+
+    const handleDeleteButtonClick = async () => {
+        console.debug('handleDeleteButtonClick', params.id);
+        const response = await _API_.deleteBiddingEstimate(Number(params.id));
+        if (response.status) {
+            History.goBack();
+        }
+    };
 
     useEffect(() => {
         const fnGetDetail = async () => {
@@ -80,6 +94,12 @@ export default function EstimateDetail() {
                             <Input.TextArea rows={4} defaultValue={initialValueData.memo} />
                         </Descriptions.Item>
                     </Descriptions>
+                    <Divider />
+                    <Form.Item {...tailLayout}>
+                        <Button type="dashed" htmlType="button" onClick={handleDeleteButtonClick}>
+                            삭제
+                        </Button>
+                    </Form.Item>
                     <Divider />
                 </Col>
             </Row>

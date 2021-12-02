@@ -459,3 +459,136 @@ export function chartDetail(class_id: number): Promise<
         payload: {},
     });
 }
+
+// 딜러 회원 리스트.
+export function getDealerAccountList({
+    brand,
+    searchName,
+    ticketOrder,
+}: {
+    brand: number;
+    searchName: string;
+    ticketOrder: boolean;
+}): Promise<
+    CommonTypes.ServiceResponse<
+        Array<{
+            id: number;
+            email: string;
+            password: string;
+            name: string;
+            contact: string;
+            companyName: string;
+            position: string;
+            enabled: number;
+            blackEnable: number;
+            brand_id: number[];
+            brand_id_string: string;
+            brand_name: string;
+            ticket_count: number;
+            created_at: string;
+            updated_at: string;
+        }>
+    >
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/account/dealer-account-list`,
+        payload: { brand, searchName, ticketOrder },
+    });
+}
+
+// 딜러 회원 정보 상세 가지고 오기.
+export function getDealerAccountDetail(id: number): Promise<
+    CommonTypes.ServiceResponse<{
+        name: string;
+        email: string;
+        contact: string;
+        companyName: string;
+        position: string;
+        businessCard: string;
+        enabled: number;
+        blackEnable: number;
+        brand_id: number[];
+        brand_name: string;
+        ticket_count: number;
+        created_at: string;
+        updated_at: string;
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/v2/admin/account/${id}/dealer-account-detail`,
+        payload: {},
+    });
+}
+
+// 딜러 회원 정보 저장.
+export function saveDealerAccountDetail({
+    id,
+    payload,
+}: {
+    id: number;
+    payload: {
+        blackEnable: boolean;
+        brand_id: number[];
+        companyName: string;
+        enabled: boolean;
+        name: string;
+        position: string;
+    };
+}): Promise<
+    CommonTypes.ServiceResponse<{
+        message: string;
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/account/${id}/dealer-account-detail`,
+        payload: payload,
+    });
+}
+
+// 딜러 회원 디바이스 초기화.
+export function dealerDeviceReset(id: number): Promise<
+    CommonTypes.ServiceResponse<{
+        message: string;
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/account/${id}/dealer-device-reset`,
+        payload: {},
+    });
+}
+
+// 딜러 회원 탈퇴
+// /v2/admin/account/740/dealer-account-delete
+export function dealerAccountDelete(id: number): Promise<
+    CommonTypes.ServiceResponse<{
+        message: string;
+    }>
+> {
+    return _Axios_({
+        method: 'delete',
+        url: `/v2/admin/account/${id}/dealer-account-delete`,
+        payload: {},
+    });
+}
+
+// 딜러 회원 비밀번호 변경
+export function dealerChangePassword(
+    id: number,
+    password: string
+): Promise<
+    CommonTypes.ServiceResponse<{
+        message: string;
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/account/${id}/dealer-change-password`,
+        payload: {
+            password: password,
+        },
+    });
+}

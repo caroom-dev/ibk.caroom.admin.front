@@ -16,7 +16,7 @@ export default function ChargeTicketsPage() {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>
-                    :: {process.env.REACT_APP_TITLE} :: {`테켓 현황`}
+                    :: {process.env.REACT_APP_TITLE} :: {`티켓 현황`}
                 </title>
                 <link rel="canonical" href={`${globalThis.location.origin}${storeRouterLocation}`} />
             </Helmet>

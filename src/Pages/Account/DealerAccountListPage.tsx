@@ -4,9 +4,9 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { RootState } from 'StoreTypes';
 import { useSelector } from 'react-redux';
 
-const DtlPage = lazy(() => import('./Dtls/UserTicketDetail'));
+const DtlPage = lazy(() => import('./Dtls/DealerAccountList'));
 
-export default function UserTicketDetailPage() {
+export default function DealerAccountListPage() {
     const { storeRouterLocation } = useSelector((store: RootState) => ({
         storeRouterLocation: store.router.location,
     }));
@@ -16,7 +16,7 @@ export default function UserTicketDetailPage() {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>
-                    :: {process.env.REACT_APP_TITLE} :: {`티켓 현황`}
+                    :: {process.env.REACT_APP_TITLE} :: {`딜러 회원 리스트`}
                 </title>
                 <link rel="canonical" href={`${globalThis.location.origin}${storeRouterLocation}`} />
             </Helmet>

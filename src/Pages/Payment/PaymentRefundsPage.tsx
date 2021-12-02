@@ -16,7 +16,7 @@ export default function PaymentRefundsPage() {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>
-                    :: {process.env.REACT_APP_TITLE} :: {`테켓 구매`}
+                    :: {process.env.REACT_APP_TITLE} :: {`티켓 구매`}
                 </title>
                 <link rel="canonical" href={`${globalThis.location.origin}${storeRouterLocation}`} />
             </Helmet>

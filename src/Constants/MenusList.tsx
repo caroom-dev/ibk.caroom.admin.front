@@ -16,6 +16,17 @@ export const menus = [
         list: [],
     },
     {
+        name: '회원관리',
+        key: 'account',
+        icon: <PartitionOutlined />,
+        list: [
+            {
+                name: '딜러 회원 리스트',
+                key: 'dealer-account-list',
+            },
+        ],
+    },
+    {
         name: '입찰관리',
         key: 'bidding',
         icon: <PartitionOutlined />,

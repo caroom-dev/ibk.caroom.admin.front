@@ -33,6 +33,16 @@
             "componentName": "Mains/Dashboard"
         },
         {
+            "name": "딜러회원 목록.",
+            "routeName": "/account/dealer-account-list",
+            "componentName": "Account/DealerAccountListPage"
+        },
+        {
+            "name": "딜러회원 목록.",
+            "routeName": "/account/:account_id/dealer-account-detail",
+            "componentName": "Account/DealerAccountDetailPage"
+        },
+        {
             "name": "입찰 목록.",
             "routeName": "/bidding/bidding-list",
             "componentName": "Bidding/BiddingListPage"

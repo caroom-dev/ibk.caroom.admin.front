@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import {
     Divider,
     Row,
@@ -7,12 +7,12 @@ import {
     Card,
     Col,
     message,
-    Descriptions,
+    // Descriptions,
     Form,
     Button,
     Input,
     Select,
-    List,
+    // List,
     Space,
     Switch,
 } from 'antd';
@@ -21,20 +21,20 @@ import * as _API_ from '@API';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
-import { dealerAccountDelete, dealerChangePassword, dealerDeviceReset } from '@API';
+// import { dealerAccountDelete, dealerChangePassword, dealerDeviceReset } from '@API';
 import History from '@Module/History';
-import { assignWith } from 'lodash';
+// import { assignWith } from 'lodash';
 import Swal from 'sweetalert2';
 import * as Helper from '@Helper';
-const { Option } = Select;
+// const { Option } = Select;
 const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 12 },
 };
 
-const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-};
+// const tailLayout = {
+//     wrapperCol: { offset: 8, span: 16 },
+// };
 
 interface initialValueInterface {
     name: string;
@@ -55,8 +55,7 @@ interface initialValueInterface {
 }
 
 export default function DealerAccountDetail() {
-    const { storeCodes, storeBrand } = useSelector((store: RootState) => ({
-        storeCodes: store.app.common.codes,
+    const { storeBrand } = useSelector((store: RootState) => ({
         storeBrand: store.app.common.car.brand,
     }));
 

@@ -2,7 +2,7 @@
 // import { Tag } from 'antd';
 // import { Tag } from 'antd';
 import React from 'react';
-import History from '@Module/History';
+// import History from '@Module/History';
 
 export const columns = [
     {

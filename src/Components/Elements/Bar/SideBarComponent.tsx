@@ -40,6 +40,7 @@ export default function SideBarComponent({ handleOnCollapse, collapsed }: { hand
             onCollapse={handleOnCollapse}
             collapsed={collapsed}
             width="256"
+            style={{ height: '100%' }}
             theme={theme}
         >
             <a>

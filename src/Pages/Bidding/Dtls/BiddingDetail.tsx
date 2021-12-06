@@ -293,8 +293,6 @@ export default function BiddingDetail() {
                         <Descriptions.Item label="종료">{initialValueData.end_at}</Descriptions.Item>
                     </Descriptions>
 
-                    <Divider />
-
                     <Divider orientation="left">견적 리스트</Divider>
                     <List
                         bordered
@@ -312,10 +310,10 @@ export default function BiddingDetail() {
                         }
                         renderItem={item => <List.Item>{item}</List.Item>}
                     />
-                    <Divider />
                 </Col>
 
                 <Col span={14}>
+                    <Divider orientation="left">견적서 보내기</Divider>
                     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
                         <Form.Item
                             name="category"

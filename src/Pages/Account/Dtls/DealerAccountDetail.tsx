@@ -408,13 +408,25 @@ export default function DealerAccountDetail() {
                                     })}
                             </Select>
                         </Form.Item>
-                        <Form.Item name={`end_at`} label="종료 날짜" rules={[{ required: false }]}>
+                        <Form.Item
+                            name={`end_at`}
+                            label="종료 날짜"
+                            rules={[{ required: true, message: '날짜를 등록해주세요.' }]}
+                        >
                             <DatePicker picker="date" format={`YYYY-MM-DD`} />
                         </Form.Item>
-                        <Form.Item name={`use_count`} label="티켓 개수" rules={[{ required: false }]}>
+                        <Form.Item
+                            name={`use_count`}
+                            label="티켓 개수"
+                            rules={[{ required: true, message: '티켓 개수를 등록해주세요.' }]}
+                        >
                             <InputNumber min={1} />
                         </Form.Item>
-                        <Form.Item name={`ticket_memo`} label="충전 문구" rules={[{ required: false }]}>
+                        <Form.Item
+                            name={`ticket_memo`}
+                            label="충전 문구"
+                            rules={[{ required: true, message: '충전 문구를 등록해주세요.' }]}
+                        >
                             <Input />
                         </Form.Item>
                         <Row justify="center" gutter={16}>

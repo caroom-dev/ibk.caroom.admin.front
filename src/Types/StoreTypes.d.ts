@@ -14,19 +14,28 @@ declare module 'StoreTypes' {
             message: string;
         };
         common: {
-            codes: Codes,
+            codes: Codes;
             car: {
                 brand: Array<{
-                    id : number,
-                    name: string,
-                }>
-            }
+                    id: number;
+                    name: string;
+                }>;
+            };
+            ticket: Array<{
+                id: number;
+                uuid: string;
+                ticket_type: string;
+                name: string;
+                price: number;
+                hide: string;
+                active: string;
+            }>;
         };
         listPageState: {
             current: number;
             pageSize: number;
             total: number;
-        }
+        };
     }
 
     // 인증 스토어.

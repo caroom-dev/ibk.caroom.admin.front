@@ -15,6 +15,8 @@ import {
     // List,
     Space,
     Switch,
+    DatePicker,
+    InputNumber,
 } from 'antd';
 // import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import * as _API_ from '@API';
@@ -54,16 +56,37 @@ interface initialValueInterface {
     updated_at: string;
 }
 
+interface ticketInitialValueInterface {
+    name: string;
+    email: string;
+    contact: string;
+    companyName: string;
+    position: string;
+    businessCard: string;
+    enabled: number;
+    isEnabled: boolean;
+    isBlackEnable: boolean;
+    blackEnable: number;
+    brand_id: number[];
+    brand_name: string;
+    ticket_count: number;
+    created_at: string;
+    updated_at: string;
+}
+
 export default function DealerAccountDetail() {
-    const { storeBrand } = useSelector((store: RootState) => ({
+    const { storeBrand, storeTicket } = useSelector((store: RootState) => ({
         storeBrand: store.app.common.car.brand,
+        storeTicket: store.app.common.ticket,
     }));
 
     // const history = useHistory();
     const [form] = Form.useForm();
+    const [ticketForm] = Form.useForm();
     const params = useParams<{ account_id: string }>();
     const [cardLoading, setCardLoading] = useState(false);
     const [initialValueData, setInitialValueData] = useState<initialValueInterface>();
+    const [ticketInitialValueData] = useState<ticketInitialValueInterface>();
 
     const onFinish = async (value: {
         name: string;
@@ -89,6 +112,37 @@ export default function DealerAccountDetail() {
         if (response.status) {
             message.success('수정 되었습니다.');
             getInfo();
+        } else {
+            message.error('처리중 문제가 발생했습니다.');
+        }
+    };
+
+    const tickekFormOnFinish = async ({
+        end_at,
+        ticket_memo,
+        ticket_select,
+        use_count,
+    }: {
+        end_at: any;
+        ticket_memo: string;
+        ticket_select: number;
+        use_count: number;
+    }) => {
+        const response = await _API_.sendDealerTicketCharge({
+            id: Number(params.account_id),
+            payload: {
+                end_at: end_at,
+                ticket_memo: ticket_memo,
+                ticket_select: ticket_select,
+                use_count: use_count,
+            },
+        });
+
+        if (response.status) {
+            message.success('정상 처리 하였습니다.');
+            History.push({
+                pathname: process.env.PUBLIC_URL + `/account/dealer-account-list`,
+            });
         } else {
             message.error('처리중 문제가 발생했습니다.');
         }
@@ -323,6 +377,53 @@ export default function DealerAccountDetail() {
                             </Col>
                         </Row>
                         <Divider />
+                    </Form>
+                </Col>
+            </Row>
+            <Divider orientation="left">티켓 충전</Divider>
+            <Row justify="center">
+                <Col span={14}>
+                    <Form
+                        {...layout}
+                        form={ticketForm}
+                        name="ticketCharge"
+                        onFinish={tickekFormOnFinish}
+                        initialValues={ticketInitialValueData}
+                    >
+                        <Form.Item name={`ticket_select`} label="티켓" rules={[{ required: false }]}>
+                            <Select
+                                // mode="multiple"
+                                allowClear
+                                // style={{ width: '100%' }}
+                                placeholder="티켓 선택"
+                                defaultValue={initialValueData && initialValueData.brand_id}
+                            >
+                                {storeTicket &&
+                                    storeTicket.map(item => {
+                                        return (
+                                            <Select.Option value={item.id} key={item.id}>
+                                                {item.name}
+                                            </Select.Option>
+                                        );
+                                    })}
+                            </Select>
+                        </Form.Item>
+                        <Form.Item name={`end_at`} label="종료 날짜" rules={[{ required: false }]}>
+                            <DatePicker picker="date" format={`YYYY-MM-DD`} />
+                        </Form.Item>
+                        <Form.Item name={`use_count`} label="티켓 개수" rules={[{ required: false }]}>
+                            <InputNumber min={1} />
+                        </Form.Item>
+                        <Form.Item name={`ticket_memo`} label="충전 문구" rules={[{ required: false }]}>
+                            <Input />
+                        </Form.Item>
+                        <Row justify="center" gutter={16}>
+                            <Col>
+                                <Button type="primary" htmlType="submit">
+                                    충전
+                                </Button>
+                            </Col>
+                        </Row>
                     </Form>
                 </Col>
             </Row>

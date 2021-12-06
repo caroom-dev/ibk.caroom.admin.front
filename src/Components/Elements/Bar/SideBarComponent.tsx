@@ -36,7 +36,7 @@ export default function SideBarComponent({ handleOnCollapse, collapsed }: { hand
     return (
         <Sider
             breakpoint="lg"
-            collapsedWidth="80"
+            collapsedWidth="100"
             onCollapse={handleOnCollapse}
             collapsed={collapsed}
             width="256"

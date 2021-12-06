@@ -30,7 +30,7 @@ export default function MainLayoutComponent({ children }: { children: any }) {
     }, []);
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout style={{ minHeight: '120vh' }}>
             <SideBar collapsed={collapsed} handleOnCollapse={handleOnCollapse} />
             <Layout>
                 <TopBar collapsed={collapsed} handleOnCollapse={handleOnCollapse} />

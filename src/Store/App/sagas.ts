@@ -32,6 +32,7 @@ function* appInitSaga() {
             payload: {
                 codes: serverBaseData.payload.codes,
                 car: serverBaseData.payload.car,
+                ticket: serverBaseData.payload.ticket,
             },
         });
 

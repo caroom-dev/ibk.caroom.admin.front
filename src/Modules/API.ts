@@ -592,3 +592,27 @@ export function dealerChangePassword(
         },
     });
 }
+
+// 딜러 회원 티켓 충전.
+export function sendDealerTicketCharge({
+    id,
+    payload,
+}: {
+    id: number;
+    payload: {
+        end_at: any;
+        ticket_memo: string;
+        ticket_select: number;
+        use_count: number;
+    };
+}): Promise<
+    CommonTypes.ServiceResponse<{
+        message: string;
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/account/${id}/dealer-charge-ticket`,
+        payload: payload,
+    });
+}

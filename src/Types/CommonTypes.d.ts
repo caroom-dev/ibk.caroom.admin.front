@@ -274,10 +274,19 @@ declare module 'CommonTypes' {
 
     // 기본 데이터들.
     export interface AppBase {
-        codes: Codes
+        codes: Codes;
         car: {
-            brand: Array<{ id: number; name: string }>
-        }
+            brand: Array<{ id: number; name: string }>;
+        };
+        ticket: Array<{
+            id: numher;
+            uuid: string;
+            ticket_type: string;
+            name: string;
+            price: number;
+            hide: string;
+            active: string;
+        }>;
     }
 
     interface carRoomTreeSelectItem {

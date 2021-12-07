@@ -620,7 +620,14 @@ export function sendDealerTicketCharge({
 // 딜러 회원 리스트 ( 입찰 노출 관련 )
 export function getBrandDealerAccountList(id: number): Promise<
     CommonTypes.ServiceResponse<{
-        account: Array<{ id: number; name: string; brand: number[]; companyName: string; position: string }>;
+        account: Array<{
+            id: number;
+            name: string;
+            brand: number[];
+            companyName: string;
+            position: string;
+            ticket_count: number;
+        }>;
         dealer: number[];
     }>
 > {

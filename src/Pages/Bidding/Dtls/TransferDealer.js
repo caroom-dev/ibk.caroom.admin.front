@@ -74,6 +74,10 @@ const leftTableColumns = [
         dataIndex: 'companyName',
         title: '업체명',
     },
+    {
+        dataIndex: 'ticket_count',
+        title: '티켓',
+    },
 ];
 const rightTableColumns = [
     {
@@ -83,6 +87,10 @@ const rightTableColumns = [
     {
         dataIndex: 'companyName',
         title: '업체명',
+    },
+    {
+        dataIndex: 'ticket_count',
+        title: '티켓',
     },
 ];
 
@@ -119,6 +127,7 @@ export default function TransferDealer() {
                     key: item.id.toString(),
                     name: item.name,
                     companyName: item.companyName,
+                    ticket_count: item.ticket_count,
                     disabled: false,
                 };
             })
@@ -142,6 +151,7 @@ export default function TransferDealer() {
 
         if (response.status) {
             message.success('저장 되었습니다.');
+            getList();
         } else {
             message.success('문제가 발생 되었습니다.');
         }

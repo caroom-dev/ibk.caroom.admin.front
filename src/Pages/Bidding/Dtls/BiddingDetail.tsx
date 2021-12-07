@@ -6,6 +6,7 @@ import * as _API_ from '@API';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
+import TransferDealer from './TransferDealer';
 // import { getEstimateSevice, sendEstimates } from '@API';
 const { Option } = Select;
 const layout = {
@@ -313,6 +314,10 @@ export default function BiddingDetail() {
                 </Col>
 
                 <Col span={14}>
+                    <Divider orientation="left">딜러 노출 관리</Divider>
+                    <TransferDealer />
+                </Col>
+                <Col span={14}>
                     <Divider orientation="left">견적서 보내기</Divider>
                     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
                         <Form.Item
@@ -374,7 +379,7 @@ export default function BiddingDetail() {
 
                         <Form.Item {...tailLayout}>
                             <Button type="primary" htmlType="submit">
-                                Submit
+                                저장
                             </Button>
                         </Form.Item>
                         <Divider />

@@ -616,3 +616,38 @@ export function sendDealerTicketCharge({
         payload: payload,
     });
 }
+
+// 딜러 회원 리스트 ( 입찰 노출 관련 )
+export function getBrandDealerAccountList(id: number): Promise<
+    CommonTypes.ServiceResponse<{
+        account: Array<{ id: number; name: string; brand: number[]; companyName: string; position: string }>;
+        dealer: number[];
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/v2/admin/bidding/${id}/dealer-list`,
+        payload: {},
+    });
+}
+
+// 딜러 회원 리스트 저장 ( 입찰 노출 )
+export function saveBrandDealerAccountList({
+    id,
+    payload,
+}: {
+    id: number;
+    payload: {
+        id: number[];
+    };
+}): Promise<
+    CommonTypes.ServiceResponse<{
+        message: string;
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/v2/admin/bidding/${id}/dealer-list`,
+        payload: payload,
+    });
+}

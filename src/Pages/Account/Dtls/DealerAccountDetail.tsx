@@ -57,21 +57,10 @@ interface initialValueInterface {
 }
 
 interface ticketInitialValueInterface {
-    name: string;
-    email: string;
-    contact: string;
-    companyName: string;
-    position: string;
-    businessCard: string;
-    enabled: number;
-    isEnabled: boolean;
-    isBlackEnable: boolean;
-    blackEnable: number;
-    brand_id: number[];
-    brand_name: string;
-    ticket_count: number;
-    created_at: string;
-    updated_at: string;
+    ticket_select: number;
+    end_at: string;
+    use_count: number;
+    ticket_memo: string;
 }
 
 export default function DealerAccountDetail() {
@@ -396,7 +385,7 @@ export default function DealerAccountDetail() {
                                 allowClear
                                 // style={{ width: '100%' }}
                                 placeholder="티켓 선택"
-                                defaultValue={initialValueData && initialValueData.brand_id}
+                                defaultValue={ticketInitialValueData && ticketInitialValueData.ticket_select}
                             >
                                 {storeTicket &&
                                     storeTicket.map(item => {

@@ -92,9 +92,21 @@ const rightTableColumns = [
         dataIndex: 'ticket_count',
         title: '티켓',
     },
+    {
+        dataIndex: 'click',
+        title: '클릭',
+    },
+    {
+        dataIndex: 'join',
+        title: '입찰',
+    },
+    {
+        dataIndex: 'contact_click',
+        title: '연락처',
+    },
 ];
 
-export default function TransferDealer() {
+export default function TransferDealer({ PayGubunCode }) {
     const params = useParams();
     const [tableOption, setTableOption] = useState({
         targetKeys: originTargetKeys,
@@ -123,19 +135,29 @@ export default function TransferDealer() {
         const { payload } = response;
         setTableData(
             payload.account.map(item => {
+                let needPoint;
+                if (PayGubunCode === '0300010' || PayGubunCode === '0300020') {
+                    needPoint = 1;
+                } else {
+                    needPoint = 4;
+                }
+
                 return {
                     key: item.id.toString(),
                     name: item.name,
                     companyName: item.companyName,
                     ticket_count: item.ticket_count,
-                    disabled: false,
+                    click: item.click,
+                    join: item.join,
+                    contact_click: item.contact_click,
+                    disabled: item.ticket_count < needPoint ? true : false,
                 };
             })
         );
 
         setTableOption({
             ...tableOption,
-            targetKeys: payload.dealer.map(item => item.toString()),
+            targetKeys: payload.dealer.map(item => item.id.toString()),
         });
     };
 
@@ -162,10 +184,6 @@ export default function TransferDealer() {
             getList();
         }
     }, []);
-
-    useEffect(() => {
-        console.debug(tableOption);
-    }, [tableOption]);
 
     return (
         <>

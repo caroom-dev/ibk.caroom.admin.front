@@ -86,6 +86,7 @@ export default function BiddingDetail() {
         }>;
         pay_area: string;
         pay_gubun: string;
+        pay_gubun_code: string;
         end_at: string;
         created_at: string;
         estimates: Array<{
@@ -125,6 +126,7 @@ export default function BiddingDetail() {
         consults: [],
         pay_area: '',
         pay_gubun: '',
+        pay_gubun_code: '',
         end_at: '',
         created_at: '',
         estimates: [],
@@ -215,6 +217,7 @@ export default function BiddingDetail() {
                     }),
                     pay_area: payload.bidding.option.pay_area.code_name,
                     pay_gubun: payload.bidding.pay_gubun.code_name,
+                    pay_gubun_code: payload.bidding.pay_gubun.code_id,
                     end_at: payload.bidding.end_at,
                     created_at: payload.bidding.created_at,
                     estimates: payload.bidding.estimates,
@@ -313,9 +316,9 @@ export default function BiddingDetail() {
                     />
                 </Col>
 
-                <Col span={14}>
+                <Col span={24}>
                     <Divider orientation="left">딜러 노출 관리</Divider>
-                    <TransferDealer />
+                    <TransferDealer PayGubunCode={initialValueData.pay_gubun_code} />
                 </Col>
                 <Col span={14}>
                     <Divider orientation="left">견적서 보내기</Divider>

@@ -14,10 +14,17 @@ export function getBaseData(): Promise<CommonTypes.ServiceResponse<CommonTypes.A
 
 // 로그인.
 export function login(payload: {
-    email: string;
-    password: string;
-}): Promise<CommonTypes.ServiceResponse<{ access_token: string; refresh_token: string }>> {
-    return _Axios_({ method: 'post', url: '/caroomAdmin/account/login', payload: payload });
+    id: string;
+    pw: string;
+}): Promise<CommonTypes.ServiceResponse<{ access_token: string }>> {
+    return _Axios_({ method: 'post', url: '/v2/admin/auth/login', payload: payload });
+}
+
+// 로그인 체크
+export function loginCheck(payload: {
+    access_token: string;
+}): Promise<CommonTypes.ServiceResponse<{ access_token: string }>> {
+    return _Axios_({ method: 'post', url: '/v2/admin/auth/check', payload: payload });
 }
 
 // 입찰 리스트

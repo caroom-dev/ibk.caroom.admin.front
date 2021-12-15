@@ -1,5 +1,5 @@
 import { takeLatest, fork, put, call } from 'redux-saga/effects';
-import { login } from '@API';
+import { login, loginCheck } from '@API';
 import { setlocalToken, removeLocalToken } from '@Helper';
 import { ServiceResponse } from 'CommonTypes';
 import { COLORLOG, getLocalToken, isEmpty } from '@Helper';
@@ -13,26 +13,23 @@ function* loginRequestSaga({
 }: {
     payload: { login_id: string; login_password: string };
 }) {
-    const response: ServiceResponse<{ access_token: string; refresh_token: string }> = yield call(login, {
-        email: login_id,
-        password: login_password,
+    const response: ServiceResponse<{ access_token: string }> = yield call(login, {
+        id: login_id,
+        pw: login_password,
     });
-
-    console.debug(response);
 
     const { status, message, payload } = response;
 
     if (status === true) {
         setlocalToken({
             access_token: payload.access_token,
-            refresh_token: payload.refresh_token,
         });
+
         yield put({
             type: _Types.LOGIN_SUCCESS,
             payload: {
-                message: '로그인 성공했습니다.',
+                message: '로그인에 성공했습니다.',
                 access_token: payload.access_token,
-                refresh_token: payload.refresh_token,
             },
         });
 
@@ -63,27 +60,71 @@ function* startLogoutSaga() {
 
 // app init 할때 로컬 토큰 체크.
 function* checkLocalTokenSaga() {
-    const { access_token, refresh_token } = getLocalToken();
+    const { access_token } = getLocalToken();
 
-    if (!isEmpty(access_token) && !isEmpty(refresh_token)) {
-        // TODO: 로그인 체크 api 태워야 함.
-        yield put({
-            type: _Types.LOGIN_SUCCESS,
-            payload: {
-                message: '로그인 성공했습니다.',
-                access_token: access_token,
-                refresh_token: refresh_token,
-            },
+    if (!isEmpty(access_token)) {
+        const response: ServiceResponse<{ access_token: string }> = yield call(loginCheck, {
+            access_token: access_token,
         });
 
-        yield put({
-            type: _AppTypes.SET_LOGIN_STATE_TRUE,
-        });
+        const { status, message, payload } = response;
+
+        if (status === true) {
+            setlocalToken({
+                access_token: payload.access_token,
+            });
+
+            yield put({
+                type: _Types.LOGIN_SUCCESS,
+                payload: {
+                    message: '로그인에 성공했습니다.',
+                    access_token: payload.access_token,
+                },
+            });
+
+            yield put({
+                type: _AppTypes.SET_LOGIN_STATE_TRUE,
+            });
+        } else {
+            removeLocalToken();
+            yield put({
+                type: _Types.LOGIN_FAILURE,
+                payload: {
+                    message: message,
+                },
+            });
+            yield put({
+                type: _AppTypes.SET_LOGIN_STATE_FALSE,
+            });
+        }
     } else {
         COLORLOG(':: 로컬 토큰 체크 실패 :: ', 'error');
         removeLocalToken();
     }
 }
+
+// function* checkLocalTokenSaga() {
+//     const { access_token, refresh_token } = getLocalToken();
+//
+//     if (!isEmpty(access_token) && !isEmpty(refresh_token)) {
+//         // TODO: 로그인 체크 api 태워야 함.
+//         yield put({
+//             type: _Types.LOGIN_SUCCESS,
+//             payload: {
+//                 message: '로그인 성공했습니다.',
+//                 access_token: access_token,
+//                 refresh_token: refresh_token,
+//             },
+//         });
+//
+//         yield put({
+//             type: _AppTypes.SET_LOGIN_STATE_TRUE,
+//         });
+//     } else {
+//         COLORLOG(':: 로컬 토큰 체크 실패 :: ', 'error');
+//         removeLocalToken();
+//     }
+// }
 
 function* onBaseSagaWatcher() {
     yield takeLatest(_Types.LOGIN_REQUEST as any, loginRequestSaga);

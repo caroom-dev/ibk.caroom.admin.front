@@ -94,9 +94,8 @@ export const cookieManager = {
  * 로그인 토큰 저장.
  * @param payload
  */
-export function setlocalToken({ access_token, refresh_token }: { access_token: string; refresh_token: string }): void {
+export function setlocalToken({ access_token }: { access_token: string }): void {
     storageManager.set('access_token', access_token);
-    storageManager.set('refresh_token', refresh_token);
 }
 
 /**
@@ -181,11 +180,10 @@ export const isValidEmail = (emailString: string) => {
 };
 
 export const stringEnterToPtag = (text: string) => {
-
     let result = '';
-    result = "<p>" + text + "</p>";
-    result = result.replace(/\r\n\r\n/g, "</p><p>").replace(/\n\n/g, "</p><p>");
-    result = result.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
+    result = '<p>' + text + '</p>';
+    result = result.replace(/\r\n\r\n/g, '</p><p>').replace(/\n\n/g, '</p><p>');
+    result = result.replace(/\r\n/g, '<br />').replace(/\n/g, '<br />');
 
     return result;
-}
+};

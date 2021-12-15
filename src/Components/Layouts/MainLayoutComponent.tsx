@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import { SideBar, TopBar, FooterBar } from '@Element/Bar';
 import { RootState } from 'StoreTypes';
-import { useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 // import _Alert_ from '@_Alert_';
-
+import { checkLocalTokenAction } from '@Store/Auths';
 const { Content } = Layout;
 
 export default function MainLayoutComponent({ children }: { children: any }) {
-    // const history = useHistory();
+    const dispatch = useDispatch();
+    const history = useHistory();
     const { appLoginState } = useSelector((store: RootState) => ({
         appLoginState: store.app.loginState,
     }));
@@ -23,10 +24,14 @@ export default function MainLayoutComponent({ children }: { children: any }) {
     useEffect(() => {
         if (appLoginState === false) {
             // _Alert_.error({ text: '로그인이 필요한 서비스 입니다.' });
-            // history.push({
-            //     pathname: process.env.PUBLIC_URL + `/auth/login`,
-            // });
+            history.push({
+                pathname: process.env.PUBLIC_URL + `/auth/login`,
+            });
         }
+    }, []);
+
+    useEffect(() => {
+        dispatch(checkLocalTokenAction());
     }, []);
 
     return (

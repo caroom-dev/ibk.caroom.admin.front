@@ -1,6 +1,6 @@
 declare module 'StoreTypes' {
     import { RouterState } from 'connected-react-router';
-    import { Codes, Products, CodeItem, LocalTokenInterface, DefaultStatus } from 'CommonTypes';
+    import { Codes, Products, CodeItem, LocalTokenInterface, DefaultStatus, biddingItem } from 'CommonTypes';
 
     // App Store
     export interface AppState {
@@ -47,10 +47,22 @@ declare module 'StoreTypes' {
         };
     }
 
+    export interface BiddingState {
+        search: {
+            brand: number | null;
+            searchName: string | null;
+        };
+        result: {
+            status: DefaultStatus;
+            list: biddingItem[];
+        };
+    }
+
     // store 인터페이스.
     export interface RootState {
         router: RouterState;
         app: AppState;
         auths: AuthsState;
+        bidding: BiddingState;
     }
 }

@@ -2,28 +2,35 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { PageHeader } from '@Layouts';
 import { useDataTable } from '@Hooks';
 import * as constants from '@Src/Data/BiddingList';
-import * as _API_ from '@API';
-import { message, Row, Col, Input, Divider, Select, Button } from 'antd';
+import { Row, Col, Input, Divider, Select, Button, Card } from 'antd';
 import History from '@Module/History';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
+import { setSearchAction, getListAction } from '@Store/Bidding';
 
-const getBrand = (brand: number | '' | undefined) => {
+const getBrand = (brand: number | null) => {
     return brand;
 };
 
-const getSearchName = (brand: string | null | undefined) => {
+const getSearchName = (brand: string | null) => {
     return brand;
 };
 
 export default function BiddingList() {
+    const dispatch = useDispatch();
     // const { loadingControl } = useLoading();
-    const { storeBrand } = useSelector((store: RootState) => ({
-        storeBrand: store.app.common.car.brand,
-    }));
+    const { storeBrand, storeBiddingSearch, storeBiddingStatus, storeBiddingList } = useSelector(
+        (store: RootState) => ({
+            storeBrand: store.app.common.car.brand,
+            storeBiddingSearch: store.bidding.search,
+            storeBiddingStatus: store.bidding.result.status,
+            storeBiddingList: store.bidding.result.list,
+        })
+    );
 
-    const [brandSelect, setBrandSelect] = useState<number | ''>();
-    const [searchName, setSearchName] = useState<string | null>();
+    const [brandSelect, setBrandSelect] = useState<number | null>(null);
+    const [searchName, setSearchName] = useState<string | null>(null);
+
     const [tableData, setTableData] = useState<{
         totalElements: number;
         content: Array<{
@@ -55,11 +62,39 @@ export default function BiddingList() {
     const { DataTable, selectedRow } = useDataTable({
         columns: constants.columns,
         dataSource: tableData,
-        updateEntityPath: 'pages/update-main-slide',
+        updateEntityPath: '',
     });
 
     const brand = useMemo(() => getBrand(brandSelect), [brandSelect]);
     const name = useMemo(() => getSearchName(searchName), [searchName]);
+
+    function onBrandChange(value: number) {
+        setBrandSelect(Number(value));
+    }
+
+    const handleResetButtonClick = useCallback(() => {
+        setBrandSelect(null);
+        setSearchName(null);
+
+        dispatch(
+            setSearchAction({
+                brand: null,
+                searchName: null,
+            })
+        );
+
+        dispatch(getListAction({ brand: null, searchName: null }));
+    }, []);
+
+    const onSearch = () => {
+        dispatch(
+            setSearchAction({
+                brand: brand,
+                searchName: name,
+            })
+        );
+        dispatch(getListAction({ brand: brand, searchName: name }));
+    };
 
     useEffect(() => {
         if (selectedRow) {
@@ -69,50 +104,25 @@ export default function BiddingList() {
         }
     }, [selectedRow]);
 
-    function onChange(value: number) {
-        setBrandSelect(Number(value));
-    }
+    useEffect(() => {
+        if (storeBiddingStatus === 'idle') {
+            dispatch(getListAction(storeBiddingSearch));
+        } else {
+            if (storeBiddingSearch.brand) {
+                setBrandSelect(storeBiddingSearch.brand);
+            }
 
-    // function onBlur() {
-    //     console.log('blur');
-    // }
-
-    // function onFocus() {
-    //     console.log('focus');
-    // }
-
-    // function onSearch(val: any) {
-    //     console.log('search:', val);
-    // }
-
-    // function biddingSearch(search: string) {
-    //     setSearchName(search);
-    //     getBiddingList();
-    // }
-
-    const handleResetButtonClick = useCallback(() => {
-        setBrandSelect('');
-        setSearchName('');
-
-        getBiddingList();
+            if (storeBiddingSearch.searchName) {
+                setSearchName(storeBiddingSearch.searchName);
+            }
+        }
     }, []);
 
-    const getBiddingList = async () => {
-        setTableData({
-            totalElements: 0,
-            content: [],
-        });
-
-        const paylaod = {
-            brand: brand ? brand : null,
-            searchName: name ? name : null,
-        };
-
-        const response = await _API_.getBidding(paylaod);
-        if (response.status) {
+    useEffect(() => {
+        if (storeBiddingStatus === 'success') {
             setTableData({
-                totalElements: response.payload.length,
-                content: response.payload.map(item => {
+                totalElements: storeBiddingList.length,
+                content: storeBiddingList.map(item => {
                     return {
                         key: item.id,
                         id: item.id,
@@ -137,68 +147,57 @@ export default function BiddingList() {
                     };
                 }),
             });
-        } else {
-            message.error(response.message);
         }
-    };
-
-    useEffect(() => {
-        const fnGetList = () => {
-            getBiddingList();
-        };
-
-        fnGetList();
-    }, []);
+    }, [storeBiddingStatus, storeBiddingList]);
 
     return (
         <>
             <PageHeader />
-            <Row gutter={16}>
-                <Col>
-                    <Button type="primary" onClick={() => handleResetButtonClick()}>
-                        초기화
-                    </Button>
-                </Col>
-                <Col>
-                    <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="브랜드를 선택해 주세요"
-                        optionFilterProp="children"
-                        onChange={onChange}
-                        // onFocus={onFocus}
-                        onBlur={() => getBiddingList()}
-                        onSearch={() => getBiddingList()}
-                        // filterOption={(input, option) =>
-                        //     // option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        // }
-                        defaultValue={brandSelect ? brandSelect : undefined}
-                        value={brandSelect ? brandSelect : undefined}
-                    >
-                        {storeBrand &&
-                            storeBrand.map(item => {
-                                return (
-                                    <Select.Option value={item.id} key={item.id}>
-                                        {item.name}
-                                    </Select.Option>
-                                );
-                            })}
-                    </Select>
-                </Col>
-                <Col>
-                    <Input.Search
-                        placeholder="입찰자 이름을 입력해 주세요."
-                        onSearch={() => getBiddingList()}
-                        allowClear
-                        style={{ float: 'left', width: 350 }}
-                        onChange={(e: any) => setSearchName(e.target.value)}
-                        defaultValue={searchName ? searchName : undefined}
-                        value={searchName ? searchName : undefined}
-                    />
-                </Col>
-            </Row>
-            <Divider />
-            <DataTable />
+            <Card title="입찰 상세" loading={storeBiddingStatus === 'loading'}>
+                <Row gutter={16}>
+                    <Col>
+                        <Button type="primary" onClick={() => handleResetButtonClick()}>
+                            초기화
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Select
+                            showSearch
+                            style={{ width: 200 }}
+                            placeholder="브랜드를 선택해 주세요"
+                            optionFilterProp="children"
+                            onChange={onBrandChange}
+                            // filterOption={(input, option) =>
+                            //     // option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            // }
+                            defaultValue={brandSelect}
+                            value={brandSelect}
+                        >
+                            {storeBrand &&
+                                storeBrand.map(item => {
+                                    return (
+                                        <Select.Option value={item.id} key={item.id}>
+                                            {item.name}
+                                        </Select.Option>
+                                    );
+                                })}
+                        </Select>
+                    </Col>
+                    <Col>
+                        <Input.Search
+                            placeholder="입찰자 이름을 입력해 주세요."
+                            onSearch={() => onSearch()}
+                            allowClear
+                            style={{ float: 'left', width: 350 }}
+                            onChange={(e: any) => setSearchName(e.target.value)}
+                            defaultValue={searchName}
+                            value={searchName}
+                        />
+                    </Col>
+                </Row>
+                <Divider />
+                <DataTable />
+            </Card>
         </>
     );
 }

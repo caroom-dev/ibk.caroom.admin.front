@@ -28,27 +28,13 @@ export function loginCheck(payload: {
 }
 
 // 입찰 리스트
-export function getBidding({ brand, searchName }: { brand: number | null; searchName: string | null }): Promise<
-    CommonTypes.ServiceResponse<
-        Array<{
-            id: number;
-            uuid: string;
-            bidding: {
-                brand_name: string;
-                model_name: string;
-                class_name: string;
-                colors_name: string;
-            };
-            account: {
-                id: number;
-                name: string;
-            };
-            estimate_count: number;
-            created_at: string;
-            end_at: string;
-        }>
-    >
-> {
+export function getBidding({
+    brand,
+    searchName,
+}: {
+    brand: number | null;
+    searchName: string | null;
+}): Promise<CommonTypes.ServiceResponse<CommonTypes.biddingItem[]>> {
     return _Axios_({
         method: 'post',
         url: '/v2/admin/bidding/bidding-list',

@@ -279,7 +279,7 @@ declare module 'CommonTypes' {
             brand: Array<{ id: number; name: string }>;
         };
         ticket: Array<{
-            id: numher;
+            id: number;
             uuid: string;
             ticket_type: string;
             name: string;
@@ -293,5 +293,23 @@ declare module 'CommonTypes' {
         title: string;
         value: string | number;
         key: string | number;
+    }
+
+    export interface biddingItem {
+        id: number;
+        uuid: string;
+        bidding: {
+            brand_name: string;
+            model_name: string;
+            class_name: string;
+            colors_name: string;
+        };
+        account: {
+            id: number;
+            name: string;
+        };
+        estimate_count: number;
+        created_at: string;
+        end_at: string;
     }
 }
